@@ -24,12 +24,12 @@
             prob.sampleTests.length >= 2 &&
             prob.sampleTests.length <= 8
         }">
-          <div class="is-size-5 has-text-weight-bold has-background-primary-light samples-label">Input</div>
-          <div class="is-size-5 has-text-weight-bold has-background-primary-light samples-label">Output</div>
+          <div class="is-size-5 has-text-weight-bold has-background-primary-light has-text-primary-dark samples-label">Input</div>
+          <div class="is-size-5 has-text-weight-bold has-background-primary-light has-text-primary-dark samples-label">Output</div>
           <template v-for="sample in prob.sampleTests">
             <template v-for="io in [sample.input, sample.output]">
               <div class="outer">
-                <button class="button">
+                <button class="button" @click="copy(io)">
                   <mdi name="copy"></mdi>
                 </button>
                 <div class="text">
@@ -45,6 +45,10 @@
 </template>
 
 <script setup lang="ts">
+const copy = (text: string) => {
+  navigator.clipboard.writeText(text)
+  .then(() => {})
+}
 </script>
 
 <style lang="scss">
@@ -67,11 +71,15 @@
     grid-template-columns: auto;
     grid-auto-flow: column;
   }
+  .samples > .samples-label {
+    margin: 0.5em;
+  }
 }
 .samples > .samples-label {
   padding: 0.5em 1em;
   align-self: start;
 }
+
 .samples > .outer {
   position: relative;
   padding: 1em;
@@ -79,6 +87,10 @@
 }
 .samples > .outer:hover {
   background: $grey-lightest;
+}
+.samples > .samples-label,
+.samples > .outer {
+  border-radius: 0.25em;
 }
 .samples .button {
   position: absolute;
