@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button class="button is-primary" @click="increment">{{ count}}</button>
+    <app-navbar></app-navbar>
+    <button class="button is-primary" @click="increment">
+    {{ count }}</button>
   </div>
 </template>
 
