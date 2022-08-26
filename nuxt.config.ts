@@ -5,5 +5,8 @@ export default defineNuxtConfig({
     ssr: false,
     css: [
         '@/assets/bulma-config.scss'
-    ]
+    ],
+    typescript: {
+        strict: true,
+    },
 })

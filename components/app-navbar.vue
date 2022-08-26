@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav class="navbar mb-2" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <nuxt-link class="navbar-item" to="/">
         <img src="~/assets/logo.png" width="32">
