@@ -4,6 +4,4 @@
 
 <script setup lang="ts">
 import VueCustomTooltip from '@adamdehaven/vue-custom-tooltip'
-
-
 </script>

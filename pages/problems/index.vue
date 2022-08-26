@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import {Ref} from 'vue'
 import {prefix} from '~/api';
 
 interface Paginated {
@@ -37,7 +36,8 @@ watch(data, () => {
 })
 
 const setPage = (newPage: number) => {
-  page.value = newPage
+  if (!pending.value)
+    page.value = newPage
 }
 
 </script>
