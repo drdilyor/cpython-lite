@@ -62,7 +62,7 @@ const {list} = toRefs(props);
 
 const getClass = (problem: Problem) => {
   const res = [];
-  if (Math.random() < 0.1 || problem.hasSolved) {
+  if (problem.hasSolved) {
     res.push('has-background-success has-text-white');
   } else if (problem.hasAttempted) {
     res.push('has-background-warning');
