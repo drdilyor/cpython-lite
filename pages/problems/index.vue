@@ -8,6 +8,7 @@
       />
     <api-view :url="'/problems/?page=' + page" ref="view">
       <template v-slot="{data}">
+        {{ totalPages = data.pagesCount, ''}}
         <problem-list :list="data.data"></problem-list>
       </template>
     </api-view>
