@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@adamdehaven/vue-custom-tooltip@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@adamdehaven/vue-custom-tooltip/-/vue-custom-tooltip-2.6.0.tgz#adb82c54ddf62224b442263bc303f12749aa943e"
+  integrity sha512-wypRRapb1pNmkvhuGSSENaDQEQeJ7gM+IXiHOmotvSzhXiVztnqw2U7fe7JWT6PiGFluVdIcoAY5QKfGzO7ktw==
+  dependencies:
+    core-js "^3.6.5"
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"
@@ -1277,6 +1284,11 @@ cookie-es@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/cookie-es/-/cookie-es-0.5.0.tgz#a6ad89923e68c542fc9e760b07aefa5ab020d719"
   integrity sha512-RyZrFi6PNpBFbIaQjXDlFIhFVqV42QeKSZX1yQIl6ihImq6vcHNGMtqQ/QzY3RMPuYSkvsRwtnt5M9NeYxKt0g==
+
+core-js@^3.6.5:
+  version "3.25.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.25.0.tgz#be71d9e0dd648ffd70c44a7ec2319d039357eceb"
+  integrity sha512-CVU1xvJEfJGhyCpBrzzzU1kjCfgsGUxhEvwUV2e/cOedYWHdmluamx+knDnmhqALddMG16fZvIqvs9aijsHHaA==
 
 core-util-is@~1.0.0:
   version "1.0.3"

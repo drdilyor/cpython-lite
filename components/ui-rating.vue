@@ -1,7 +1,7 @@
 <template>
-  <span class="is-flex">
+  <ui-tooltip :label="`Rating: ${value.toFixed(2)}`">
     <mdi v-for="icon in icons" :name="icon"></mdi>
-  </span>
+  </ui-tooltip>
 </template>
 
 <script setup lang="ts">
