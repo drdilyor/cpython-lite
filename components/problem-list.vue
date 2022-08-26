@@ -1,5 +1,5 @@
 <template>
-  <table class="table is-expanded">
+  <table class="table is-fullwidth">
     <thead>
       <th>ID</th>
       <th>Title</th>
@@ -25,7 +25,7 @@
         </td>
         <td><span class="tag" :class="difficultyColor[problem.difficulty]">
           {{ problem.difficultyTitle }}</span></td>
-        <td>{{ problem.rating }}</td>
+        <td><ui-rating :value="problem.rating"></ui-rating></td>
         <td><span class="tag is-info is-light">
           {{ problem.solved }}/{{ problem.attemptsCount }}
         </span></td>
