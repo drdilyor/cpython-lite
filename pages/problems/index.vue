@@ -6,9 +6,9 @@
       :total-pages="totalPages"
       @set-page="newPage => page = newPage"
       />
-    <api-view :url="'/problems/?page=' + page" ref="view">
+    <api-view :url="'/problems/?page=' + page" ref="view"
+      @done="onApiChange">
       <template v-slot="{data}">
-        {{ totalPages = data.pagesCount, ''}}
         <problem-list :list="data.data"></problem-list>
       </template>
     </api-view>
@@ -21,5 +21,9 @@ import {Ref} from 'vue'
 const page = ref(1)
 const totalPages = ref(-1)
 const view: Ref<any> = ref(null)
+const onApiChange = ({data}: any) => {
+  console.log({...data})
+  totalPages.value = data.pagesCount
+}
 
 </script>

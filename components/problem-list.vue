@@ -23,9 +23,12 @@
             {{ tag.name }}
           </span>
         </td>
-        <td><span class="tag is-primary">{{ problem.difficultyTitle }}</span></td>
+        <td><span class="tag" :class="difficultyColor[problem.difficulty]">
+          {{ problem.difficultyTitle }}</span></td>
         <td>{{ problem.rating }}</td>
-        <td>{{ problem.solved }}/{{ problem.attemptsCount }}</td>
+        <td><span class="tag is-info is-light">
+          {{ problem.solved }}/{{ problem.attemptsCount }}
+        </span></td>
       </tr>
     </tbody>
   </table>
@@ -69,4 +72,6 @@ const getClass = (problem: Problem) => {
   }
   return res;
 }
+
+const difficultyColor = [] as string[]
 </script>

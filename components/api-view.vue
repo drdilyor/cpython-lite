@@ -24,6 +24,8 @@ interface ApiState<T> {
   data: T | {};
 }
 
+const emit = defineEmits(['done'])
+
 const props = defineProps({
   url: {type: String, required: true},
   autoload: {type: Boolean, default: true},
@@ -54,8 +56,8 @@ const fetchData = () => {
   .catch(err => d.error = err)
   .finally(() => {
     d.pending = false
+    emit('done', d)
   })
-
 }
 
 onBeforeMount(() => {
@@ -65,7 +67,7 @@ onBeforeMount(() => {
 })
 
 watch(props, () => {
-  fetchData();
+  fetchData()
 })
 
 </script>
