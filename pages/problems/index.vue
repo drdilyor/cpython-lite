@@ -23,7 +23,7 @@ interface Paginated {
 }
 
 const page = ref(1)
-const totalPages = ref(-1)
+const totalPagesCache = ref(-1)
 
 const {data, error, pending} = useFetch<Paginated>(
   () => `${prefix}problems/?page=${page.value}`,
@@ -31,8 +31,14 @@ const {data, error, pending} = useFetch<Paginated>(
 
 watch(data, () => {
   if (data.value) {
-    totalPages.value = data.value.pagesCount
+    totalPagesCache.value = data.value.pagesCount
   }
+})
+
+const totalPages = computed(() => {
+  if (totalPagesCache.value != -1) return totalPagesCache.value
+  if (data.value) return data.value.pagesCount
+  return -1
 })
 
 const setPage = (newPage: number) => {

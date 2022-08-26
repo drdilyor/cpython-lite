@@ -1,5 +1,5 @@
 <template>
-  <table class="table is-fullwidth">
+  <table class="table is-fullwidth is-hoverable">
     <thead>
       <th>ID</th>
       <th>Title</th>
@@ -13,8 +13,10 @@
         v-for="problem in list"
         :class="getClass(problem)"
         >
-        <td>{{ problem.id }}</td>
-        <td>{{ problem.title }}</td>
+        <td><nuxt-link :to="`/problems/${problem.id}`">
+          {{ problem.id }}</nuxt-link></td>
+        <td><nuxt-link :to="`/problems/${problem.id}`">
+          {{ problem.title }}</nuxt-link></td>
         <td>
           <span
             v-for="tag in problem.tags"
