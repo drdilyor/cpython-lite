@@ -21,7 +21,7 @@ interface ApiState<T> {
   pending: boolean;
   response: Response | null;
   error: Error | null;
-  data: T | null;
+  data: T | {};
 }
 
 const props = defineProps({
@@ -33,7 +33,7 @@ const d : ApiState<any> = reactive({
   pending: false,
   response: null,
   error: null,
-  data: null,
+  data: {},
 })
 
 const fetchData = () => {
@@ -41,10 +41,10 @@ const fetchData = () => {
     console.warn("Attempt to fetch before previous finishes");
     return;
   }
-  d.pending = true;
-  d.response = null;
-  d.error = null;
-  d.data = null;
+  d.pending = true
+  d.response = null
+  d.error = null
+  d.data = {}
   api.get(props.url)
   .then(res => {
     d.response = res;
@@ -52,12 +52,20 @@ const fetchData = () => {
   })
   .then(data => d.data = data)
   .catch(err => d.error = err)
-  .finally(() => d.pending = false)
+  .finally(() => {
+    d.pending = false
+  })
+
 }
 
-onMounted(() => {
+onBeforeMount(() => {
+  console.log(props)
   if (props.autoload)
     fetchData()
+})
+
+watch(props, () => {
+  fetchData();
 })
 
 </script>

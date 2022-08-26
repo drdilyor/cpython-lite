@@ -1,5 +1,5 @@
 <template>
-  <p>Hello</p>
+  <p>Error fetching</p>
 </template>
 
 <script setup lang="ts">

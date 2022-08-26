@@ -1,5 +1,5 @@
 <template>
-  <p>Hello</p>
+  <p>Loading...</p>
 </template>
 
 <script setup lang="ts">
