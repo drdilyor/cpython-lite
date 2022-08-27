@@ -16,7 +16,9 @@
         <td><nuxt-link :to="`/problems/${problem.id}`">
           {{ problem.id }}</nuxt-link></td>
         <td><nuxt-link :to="`/problems/${problem.id}`">
-          {{ problem.title }}</nuxt-link></td>
+          {{ problem.title }}</nuxt-link>
+          <span v-if="!problem.hasChecker" class="has-text-danger ml-2">No checker</span>
+        </td>
         <td>
           <span
             v-for="tag in problem.tags"
@@ -25,7 +27,7 @@
             {{ tag.name }}
           </span>
         </td>
-        <td><span class="tag" :class="difficultyColor[problem.difficulty]">
+        <td><span class="tag has-text-white" :class="'has-background-' +difficultyColor[problem.difficulty]">
           {{ problem.difficultyTitle }}</span></td>
         <td><ui-rating :value="problem.rating"></ui-rating></td>
         <td><span class="tag is-info is-light">
@@ -75,5 +77,14 @@ const getClass = (problem: Problem) => {
   return res;
 }
 
-const difficultyColor = [] as string[]
+const difficultyColor = [
+  '',
+  'info',
+  'info-dark',
+  'success',
+  'success-dark',
+  'warning-dark',
+  'danger-dark',
+  'black'
+]
 </script>

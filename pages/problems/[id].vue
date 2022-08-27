@@ -32,7 +32,7 @@
                 <button class="button" @click="copy(io)">
                   <mdi name="copy"></mdi>
                 </button>
-                <div class="text">
+                <div class="text is-family-monospace">
                   {{ io }}
                 </div>
               </div>
@@ -64,6 +64,17 @@ const copy = (text: string) => {
   .samples {
     grid-template-columns: repeat(2, 1fr);
   }
+  .samples:not(.has-many-children) > .samples-label {
+    margin: 0;
+    &:nth-child(odd) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:nth-child(even) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
 }
 @media (min-width: $widescreen) {
   .samples.has-many-children {
@@ -75,6 +86,7 @@ const copy = (text: string) => {
     margin: 0.5em;
   }
 }
+
 .samples > .samples-label {
   padding: 0.5em 1em;
   align-self: start;
