@@ -18,11 +18,11 @@
       <div class="box">
         <h2 class="is-size-3 has-text-centered mb-4">Filtering</h2>
         <form>
-          <ui-field label="Title">
-            <input class="input" type="text" v-model="filter.title">
+          <ui-field label="Title" control-class="has-icons-right">
+            <input class="input" type="text" v-model.lazy="filter.title">
           </ui-field>
           <ui-field label="Author">
-            <input type="text" class="input" v-model="filter.author">
+            <input type="text" class="input" v-model.lazy="filter.author">
           </ui-field>
           <ui-field label="Difficulty">
             <select class="input" v-model.number="filter.difficulty">
@@ -90,6 +90,8 @@ const getUrl = () => {
   let opts: any = {
     page: page.value,
     ordering: order.dec ? '-' + order.by : order.by,
+    title: filter.title,
+    author: filter.author,
     rating_min: filter.rating.min,
     rating_max: filter.rating.max,
   }

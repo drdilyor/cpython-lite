@@ -1,7 +1,9 @@
 <template>
-  <svg class="icon" style="width:24px;height:24px" viewBox="0 0 24 24">
-    <path fill="currentColor" :d="icons[name]" /> <!-- account -->
-  </svg>
+  <span class="icon">
+    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+      <path fill="currentColor" :d="icons[name]" /> <!-- account -->
+    </svg>
+  </span>
 </template>
 
 <script setup>
