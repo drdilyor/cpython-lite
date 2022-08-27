@@ -9,9 +9,9 @@ Open http://localhost:3000
 - [ ] Home
 - [ ] Problemset
   - [x] Problem list
-  - [ ] Problem detail
-  - [ ] Problem preview
-  - [ ] Filters and tags (requires upstream support)
+  - [x] Problem detail
+  - [ ] Problem preview (next)
+  - [x] Filters and tags
 - [ ] Contest List
 - [ ] Submissions
 - [ ] User profile
