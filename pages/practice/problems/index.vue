@@ -88,9 +88,11 @@ const filter = reactive({
   }
 })
 
+let prevSuffix = ''
+
 const getUrl = () => {
+  console.log('url')
   let opts: any = {
-    page: page.value,
     ordering: order.dec ? '-' + order.by : order.by,
     title: filter.title,
     author: filter.author,
@@ -102,13 +104,17 @@ const getUrl = () => {
   if (filter.hasSolved != -1)
     opts.has_solved = filter.hasSolved
   let url = prefix + 'problems/?'
-  url += Object.entries(opts)
+  let suffix = Object.entries(opts)
     .map(([key, value]) => key + '=' + value)
     .join('&')
+  if (suffix != prevSuffix)
+    page.value = 1
+  prevSuffix = suffix;
+  url += `page=${page.value}&` + suffix;
   return url;
 }
 
-const {data, error, pending} = useFetch<Paginated>(getUrl)
+const {data, error, pending, refresh} = useFetch<Paginated>(getUrl)
 
 watch(data, () => {
   if (data.value) {
