@@ -36,6 +36,9 @@
                 <template #pending>
                   <option value="-1" disabled>Loading...</option>
                 </template>
+                <template #error>
+                  <option value="-1" disabled>Error fetching</option>
+                </template>
               </api-view>
             </select>
           </ui-field>
