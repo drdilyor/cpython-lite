@@ -13,6 +13,7 @@
   "dependencies": {
     "@adamdehaven/vue-custom-tooltip": "^2.6.0",
     "bulma": "^0.9.4",
+    "mathjax": "2.7.1",
     "sass": "^1.54.5"
   }
 }

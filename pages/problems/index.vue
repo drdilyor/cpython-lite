@@ -103,7 +103,6 @@ const getUrl = () => {
   url += Object.entries(opts)
     .map(([key, value]) => key + '=' + value)
     .join('&')
-  console.log({opts, url})
   return url;
 }
 

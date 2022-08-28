@@ -6,6 +6,13 @@ export default defineNuxtConfig({
     css: [
         '@/assets/bulma-config.scss'
     ],
+    meta: {
+        script: [
+            {
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured',
+            },
+        ],
+    },
     typescript: {
         strict: true,
     },

@@ -2658,6 +2658,11 @@ make-dir@^3.1.0, make-dir@~3.1.0:
   dependencies:
     semver "^6.0.0"
 
+mathjax@2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/mathjax/-/mathjax-2.7.1.tgz#c82d2f853b2f58f738e3355329adf0b2d8f8face"
+  integrity sha512-zHrO6dTaHXquznvmSKVQhla1A2iQl/jhzOf8hqV7cEhYXcvNHyHf0aFJNFeqwY1oVk3WQGziQOa2t4K/aZCNMQ==
+
 mdn-data@2.0.14:
   version "2.0.14"
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.0.14.tgz#7113fc4281917d63ce29b43446f701e68c25ba50"

@@ -11,12 +11,12 @@
           <p class="mb-2 is-flex is-align-items-flex-start">
             Rating: <ui-rating :value="prob.rating"></ui-rating></p>
         </div>
-        <div class="is-family-monospace" v-html="prob.body"></div>
+        <div><ui-mathjax :body="prob.body"></ui-mathjax></div>
         <h2 class="is-size-5 mb-4 mt-4 has-text-weight-bold">Input</h2>
-        <div class="is-family-monospace" v-html="prob.inputData"></div>
+        <div><ui-mathjax :body="prob.inputData"></ui-mathjax></div>
 
         <h2 class="is-size-5 mb-4 mt-4 has-text-weight-bold">Output</h2>
-        <div class="is-family-monospace" v-html="prob.outputData"></div>
+        <div><ui-mathjax :body="prob.outputData"></ui-mathjax></div>
 
         <h2 class="is-size-5 mb-4 mt-4 has-text-weight-bold">Sample tests</h2>
         <div class="samples" :class="{
@@ -60,12 +60,12 @@ const copy = (text: string) => {
 .samples .text {
   white-space: pre;
 }
+
 @media (min-width: $tablet) {
   .samples {
     grid-template-columns: repeat(2, 1fr);
   }
   .samples:not(.has-many-children) > .samples-label {
-    margin: 0;
     &:nth-child(odd) {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
@@ -76,14 +76,12 @@ const copy = (text: string) => {
     }
   }
 }
+
 @media (min-width: $widescreen) {
   .samples.has-many-children {
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: auto;
     grid-auto-flow: column;
-  }
-  .samples > .samples-label {
-    margin: 0.5em;
   }
 }
 
