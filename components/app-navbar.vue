@@ -19,7 +19,7 @@
           Home
         </nuxt-link>
 
-        <nuxt-link class="navbar-item" to="/problems" active-class="is-active">
+        <nuxt-link class="navbar-item" to="/practice/problems" active-class="is-active">
           Problems
         </nuxt-link>
 

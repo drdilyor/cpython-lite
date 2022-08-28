@@ -2,6 +2,8 @@
   <div class="columns">
     <div class="column is-two-thirds">
       <div class="box">
+        <practice-tabs></practice-tabs>
+
         <h1 class="is-size-1 has-text-centered mb-4">Problemset</h1>
         <ui-pagination
           v-if="totalPages != -1"

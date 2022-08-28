@@ -13,9 +13,9 @@
         v-for="problem in list"
         :class="getClass(problem)"
         >
-        <td><nuxt-link :to="`/problems/${problem.id}`">
+        <td><nuxt-link :to="`/practice/problems/${problem.id}`">
           {{ problem.id }}</nuxt-link></td>
-        <td><nuxt-link :to="`/problems/${problem.id}`">
+        <td><nuxt-link :to="`/practice/problems/${problem.id}`">
           {{ problem.title }}</nuxt-link>
           <span v-if="!problem.hasChecker" class="has-text-danger ml-2">No checker</span>
         </td>

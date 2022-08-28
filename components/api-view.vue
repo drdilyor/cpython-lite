@@ -61,7 +61,6 @@ const fetchData = () => {
 }
 
 onBeforeMount(() => {
-  console.log(props)
   if (props.autoload)
     fetchData()
 })
