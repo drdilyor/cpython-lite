@@ -1,3 +1,10 @@
+export interface Paginated<T = any> {
+  count: number
+  total: number
+  pagesCount: number
+  data: T[]
+}
+
 export const prefix = 'http://193.164.17.14:8008/angular/'
 
 const sanitize = (url: string) => {

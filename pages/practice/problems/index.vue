@@ -64,14 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import {prefix} from '~/api';
-
-interface Paginated {
-  count: number
-  total: number
-  pagesCount: number
-  data: any
-}
+import {Paginated, prefix} from '~/api';
 
 const page = ref(1)
 const totalPagesCache = ref(-1)

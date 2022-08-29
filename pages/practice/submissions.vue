@@ -3,6 +3,7 @@
     <div class="column is-12">
       <div class="box">
         <practice-tabs></practice-tabs>
+        <submissions-inner base-url="attempts"></submissions-inner>
       </div>
     </div>
   </div>

@@ -5,7 +5,7 @@
         <nuxt-link
           class="pagination-link"
           :class="{
-            'is-current has-background-primary':
+            'is-current':
               page == props.curPage}"
           :aria-label="`Goto page ${page}`"
           @click="page == props.curPage ?0:  $emit('setPage', page)">
