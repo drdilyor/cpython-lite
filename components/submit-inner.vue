@@ -31,6 +31,7 @@
     </ui-field>
     <button class="button is-primary" type="submit" :disabled="!valid || pending || !auth.token">Submit</button>
     <p v-if="!auth.token" class="has-text-danger">Login before submitting</p>
+    <p v-if="error">Something went wrong</p>
   </form>
 </template>
 
@@ -66,4 +67,10 @@ const submit = () => {
   .catch(err => error.value = err)
   .finally(() => pending.value = false)
 }
+
+/* the following gives strange error
+onMounted(() => {
+  if (!auth.token)
+    useRouter().push('/profile/login')
+})*/
 </script>

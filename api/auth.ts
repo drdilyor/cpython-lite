@@ -1,9 +1,15 @@
 import {post} from '~/api/index'
 
-export const useAuth = () => useState('auth', () => ({
-  token: null as string|null,
-  user: null as any,
-}))
+const localStorageKey = 'auth'
+
+export const useAuth  = () => useState<{
+  token: null|string,
+  user: any,
+}>('auth', () => {
+  const val = localStorage.getItem(localStorageKey)
+  if (val) return JSON.parse(val)
+  return {token: null, user: null}
+})
 
 export interface Credentials {
   username: string
@@ -27,6 +33,10 @@ interface LoginResponse {
   }
 }
 
+const save = () => {
+  localStorage.setItem(localStorageKey, JSON.stringify(useAuth().value))
+}
+
 export const login = async (credentials: Credentials) => {
   try {
     const res = await post('/token-auth/', {
@@ -38,6 +48,7 @@ export const login = async (credentials: Credentials) => {
     const auth = useAuth();
     auth.value.token = json.user.token;
     auth.value.user = json.user;
+    save();
     return false;
   } catch (e) {
     return e;
