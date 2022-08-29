@@ -1,6 +1,6 @@
 <template>
-  <div class="columns">
-    <div class="column is-two-thirds">
+  <div class="columns is-desktop">
+    <div class="column is-three-quarters-desktop">
       <div class="box">
         <practice-tabs></practice-tabs>
 
@@ -16,7 +16,7 @@
         <problem-list v-else :list="data.data"></problem-list>
       </div>
     </div>
-    <div class="column is-one-thirds">
+    <div class="column is-one-quarter-desktop">
       <div class="box">
         <h2 class="is-size-3 has-text-centered mb-4">Filtering</h2>
         <form>

@@ -23,11 +23,13 @@
     <ui-field label="Paste code">
       <textarea class="textarea is-family-monospace" v-model="code"></textarea>
     </ui-field>
-    <button class="button is-primary" type="submit" :disabled="!valid">Submit</button>
+    <button class="button is-primary" type="submit" :disabled="!valid || pending">Submit</button>
   </form>
 </template>
 
 <script setup lang="ts">
+import {post} from '~/api'
+
 const props = defineProps({
   problemId: {type: Number, default: 0}
 })
@@ -36,8 +38,25 @@ const problemId = ref(props.problemId ? props.problemId : '');
 const problemExists = ref(false)
 watch(problemId, () => problemExists.value = false)
 const valid = computed(() => problemExists.value && code.value)
+const pending = ref(false)
+const error = ref(null as any)
+
 const submit = () => {
-  // TODO: requires auth
+  pending.value = true;
+  error.value = null;
+  post(`/problems/${problemId.value}/submit/`, {
+    body: {
+      source_code: code.value,
+      lang: 'py',
+    },
+  })
+  .then(() => {
+    useRouter().replace(`/practice/problems/${problemId.value}/submissions/`)
+  })
+  .catch((e) => {
+    error.value = e;
+  })
+  .finally(() => pending.value = false)
 }
 </script>
 

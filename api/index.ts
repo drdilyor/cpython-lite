@@ -16,6 +16,7 @@ const sanitize = (url: string) => {
 
 export const getHeaders = (): object => {
   const token = useAuth().value.token
+  console.log({token})
   if (token) return {'Authorization': 'Token ' + token}
   return {};
 }
