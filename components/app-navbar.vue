@@ -42,7 +42,7 @@
             <nuxt-link class="button is-primary">
               <strong>Sign up</strong>
             </nuxt-link>
-            <nuxt-link class="button">
+            <nuxt-link class="button" to="/profile/login">
               Log in
             </nuxt-link>
           </div>

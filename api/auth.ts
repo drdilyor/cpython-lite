@@ -21,6 +21,10 @@ interface LoginResponse {
     token: string
   }
   success: boolean
+  error: {
+    field: string
+    message: string
+  }
 }
 
 export const login = async (credentials: Credentials) => {
@@ -30,7 +34,7 @@ export const login = async (credentials: Credentials) => {
     })
     const json: LoginResponse  = await res.json();
     if (!json.success)
-      return true;
+      return json.error
     const auth = useAuth();
     auth.value.token = json.user.token;
     auth.value.user = json.user;

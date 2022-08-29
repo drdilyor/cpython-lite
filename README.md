@@ -14,11 +14,11 @@ Open http://localhost:3000
   - [x] Filters and tags
 - [ ] Contest List
 - [ ] Submissions (next)
-  - [ ] Submitting
+  - [x] Submitting
   - [ ] Code editor (?)
   - [ ] Last submissions on problem detail
-  - [ ] Submissions page
+  - [x] Submissions page
 - [ ] User profile
-- [ ] User auth
+- [x] User auth
 - [ ] Contests
 - [ ] Blogs
