@@ -62,13 +62,18 @@ interface Submission {
 }
 
 const props = defineProps({
-  baseUrl: {type: String, required: true},
+  query: {type: Object, default: {}},
 })
 const page = ref(1);
 
-const {data: submissions, error, pending} = useFetch<Paginated<Submission>>(
-  () => `${prefix}${props.baseUrl}?page=${page.value}`
+const getUrlQuery = (opts: object) => Object.entries(opts)
+  .map(kv => kv.join('=')).join('&')
+
+const {data: submissions, error, pending, refresh} = useLazyFetch<Paginated<Submission>>(
+  () => `${prefix}attempts?${getUrlQuery({...props.query, page: page.value})}`,
+  {initialCache: false},
 );
+
 const verdictColor: any = {
   1: 'is-success',
   2: 'is-danger is-light',

@@ -3,7 +3,11 @@
     <div class="column is-12">
       <div class="box">
         <practice-tabs></practice-tabs>
+        <submit-inner></submit-inner>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+</script>
