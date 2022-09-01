@@ -73,7 +73,9 @@ const props = defineProps({
 const page = ref(1);
 
 const getUrlQuery = (opts: object) => Object.entries(opts)
-  .map(kv => kv.join('=')).join('&')
+  .filter(kv => kv[1] !== null || kv[1] !== undefined)
+  .map(kv => kv.join('='))
+  .join('&')
 
 const {data: submissions, error, pending, refresh} = useLazyFetch<Paginated<Submission>>(
   () => `${prefix}attempts?${getUrlQuery({...props.query, page: page.value})}`,
