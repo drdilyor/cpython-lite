@@ -1,10 +1,20 @@
 import {post} from '~/api/index'
 
+interface User {
+  id: number
+  username: string
+  firstName: string
+  lastName: string
+  isSuperUser: boolean
+  avatar: string
+  token: string
+}
+
 const localStorageKey = 'auth'
 
 export const useAuth  = () => useState<{
-  token: null|string,
-  user: any,
+  token: string | null,
+  user: User | null,
 }>('auth', () => {
   const val = localStorage.getItem(localStorageKey)
   if (val) return JSON.parse(val)
@@ -17,15 +27,7 @@ export interface Credentials {
 }
 
 interface LoginResponse {
-  user: {
-    id: number
-    username: string
-    firstName: string
-    lastName: string
-    isSuperUser: boolean
-    avatar: string
-    token: string
-  }
+  user: User
   success: boolean
   error: {
     field: string
@@ -42,15 +44,22 @@ export const login = async (credentials: Credentials) => {
     const res = await post('/token-auth/', {
       body: credentials,
     })
-    const json: LoginResponse  = await res.json();
+    const json: LoginResponse  = await res.json()
     if (!json.success)
       return json.error
-    const auth = useAuth();
-    auth.value.token = json.user.token;
-    auth.value.user = json.user;
-    save();
-    return false;
+    const auth = useAuth()
+    auth.value.token = json.user.token
+    auth.value.user = json.user
+    save()
+    return false
   } catch (e) {
-    return e;
+    return e
   }
+}
+
+export const logout = () => {
+  const auth = useAuth()
+  auth.value.token = null
+  auth.value.user = null
+  save()
 }

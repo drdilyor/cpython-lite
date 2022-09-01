@@ -24,9 +24,9 @@
         </nuxt-link>
 
         <div class="navbar-item has-dropdown is-hoverable">
-          <nuxt-link class="navbar-link" to="/contests" active-class="is-active">
+          <div class="navbar-link">
             Contests
-          </nuxt-link>
+          </div>
 
           <div class="navbar-dropdown">
             <nuxt-link class="navbar-item" to="/contests" active-class="is-active">
@@ -37,14 +37,27 @@
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item">
+        <div v-if="!auth.token" class="navbar-item">
           <div class="buttons">
-            <nuxt-link class="button is-primary">
-              <strong>Sign up</strong>
-            </nuxt-link>
             <nuxt-link class="button" to="/profile/login">
               Log in
             </nuxt-link>
+          </div>
+        </div>
+        <div  v-else class="navbar-item has-dropdown is-hoverable is-right">
+          <div class="navbar-link">
+            {{ auth.user.username }}
+          </div>
+          <div class="navbar-dropdown">
+            <nuxt-link class="navbar-item" to="/profile">
+              <mdi name="account" class="mr-2"></mdi>
+              Profile
+            </nuxt-link>
+            <div class="navbar-divider"></div>
+            <a class="navbar-item has-text-danger" @click.prevent="logout">
+              <mdi name="logout" class="mr-2"></mdi>
+              Logout
+            </a>
           </div>
         </div>
       </div>
@@ -53,6 +66,10 @@
 </template>
 
 <script setup>
-const expanded = ref(false);
-const toggleExpanded = () => expanded.value ^= 1;
+import {useAuth, logout} from '~/api/auth'
+
+const auth = useAuth()
+
+const expanded = ref(false)
+const toggleExpanded = () => expanded.value ^= 1
 </script>
