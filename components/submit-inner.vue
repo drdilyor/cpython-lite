@@ -29,7 +29,14 @@
     <ui-field label="Paste code">
       <textarea class="textarea is-family-monospace" style="min-height: 24em" v-model="code"></textarea>
     </ui-field>
-    <button class="button is-primary" type="submit" :disabled="!valid || pending || !auth.token">Submit</button>
+    <button
+      class="button is-primary"
+      :class="pending ? 'is-loading' : ''"
+      type="submit"
+      :disabled="!valid || pending || !auth.token"
+      >
+      Submit
+    </button>
     <p v-if="!auth.token" class="has-text-danger">Login before submitting</p>
     <p v-if="error">Something went wrong</p>
   </form>
