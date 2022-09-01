@@ -8,7 +8,14 @@
         <ui-field label="Password" :message="getError('password')">
           <input class="input" type="password" v-model="password">
         </ui-field>
-        <button class="button is-primary is-fullwidth" type="submit" :disabled="pending">Login</button>
+        <button
+          class="button is-primary is-fullwidth"
+          :class="pending ? 'is-loading' : ''"
+          :disabled="pending || !valid"
+          type="submit"
+          >
+          Login
+        </button>
         <p class="has-text-danger" v-if="getUnconsumedError()">
           {{ getUnconsumedError() }}
         </p>
@@ -27,11 +34,10 @@ const error = ref(null as any);
 const pending = ref(false);
 
 const consumedErrors = new Set;
-const getError = (field: string): string|null => {
+const getError = (field: string): string | undefined => {
   consumedErrors.add(field)
   if (error.value && error.value.field == field)
     return error.value.message;
-  return null;
 }
 
 const getUnconsumedError = () => {
@@ -39,6 +45,10 @@ const getUnconsumedError = () => {
     return error.message;
   return null;
 }
+
+const valid = computed(() => {
+  return !!username.value;
+})
 
 const submit = () => {
   pending.value = true;
