@@ -1,6 +1,6 @@
 <template>
-  <div class="columns">
-    <div class="column is-12">
+  <div class="columns is-desktop">
+    <div class="column">
       <div class="box">
         <practice-tabs :problem-id="+$route.params.id"></practice-tabs>
         <api-view :url="`/problems/${$route.params.id}`" v-slot="{data: prob}">
@@ -44,6 +44,12 @@
         </api-view>
       </div>
     </div>
+    <!-- <div class="column">
+      <div class="box">
+        <h2 class="is-size-3 has-text-centered mb-4">Last submissions</h2>
+        <submissions-inner short :query="{}"></submissions-inner>
+      </div>
+    </div> -->
   </div>
 </template>
 

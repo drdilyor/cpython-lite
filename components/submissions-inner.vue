@@ -1,42 +1,47 @@
 <template>
   <div>
     <ui-pagination
+      v-if="!short"
       :cur-page="page"
       :total-pages="submissions ? submissions.pagesCount : 1"
       @set-page="v => page = v"></ui-pagination>
-      <table v-if="submissions !== null" class="table is-fullwidth is-hoverable">
-        <thead>
-          <th>ID</th>
-          <th>Submitted</th>
-          <th>Language</th>
-          <th>User</th>
-          <th>Problem</th>
-          <th>Verdict</th>
-          <th class="has-text-right">Time</th>
-          <th class="has-text-right">Memory</th>
-          <th class="has-text-right">Code size</th>
-        </thead>
-        <tbody>
-          <tr v-for="s in submissions.data">
-            <td><nuxt-link :to="`/practice/submissions/${s.id}`">
-              {{ s.id }}</nuxt-link></td>
-            <td>{{ new Date(s.created).toLocaleString([], {dateStyle: 'medium', timeStyle: 'short'}) }}</td>
-            <td><span class="tag">{{ s.lang }}</span></td>
-            <td>{{ s.user.username }}</td>
-            <td><nuxt-link :to="`/practice/problems/${s.problemId}`">
-              {{ s.problemId }} {{ s.problemTitle }}</nuxt-link></td>
-            <td><span class="tag" :class="verdictColor[s.verdict] ? verdictColor[s.verdict] : 'is-black'">
-              {{ s.verdictTitle }}
-              {{ showTest.includes(s.verdict) ? "#" + s.testCaseNumber : ''}}
-            </span></td>
-            <td class="has-text-right">{{ s.time }} ms</td>
-            <td class="has-text-right">{{ s.memory }} KiB</td>
-            <td class="has-text-right">{{ s.sourceCodeSize }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <api-view-pending v-else-if="pending"></api-view-pending>
-      <api-view-error v-else></api-view-error>
+    <table v-if="submissions !== null" class="table is-fullwidth is-hoverable">
+      <thead>
+        <th>ID</th>
+        <th>Submitted</th>
+        <th v-if="!short">Language</th>
+        <th v-if="!short">User</th>
+        <th v-if="!short">Problem</th>
+        <th>Verdict</th>
+        <th v-if="!short" class="has-text-right">Time</th>
+        <th v-if="!short" class="has-text-right">Memory</th>
+        <th v-if="!short" class="has-text-right">Code size</th>
+      </thead>
+      <tbody>
+        <tr v-for="s in submissions.data">
+          <td><nuxt-link :to="`/practice/submissions/${s.id}`">
+            {{ s.id }}</nuxt-link></td>
+          <td>
+            <span class="avoid-wrap">{{ new Date(s.created).toLocaleString([], {dateStyle: 'medium'}) }}</span>
+            {{ ' ' }}
+            <span class="avoid-wrap">{{ new Date(s.created).toLocaleString([], {timeStyle: 'short'}) }}</span>
+          </td>
+          <td v-if="!short"><span class="tag">{{ s.lang }}</span></td>
+          <td v-if="!short">{{ s.user.username }}</td>
+          <td v-if="!short"><nuxt-link :to="`/practice/problems/${s.problemId}`">
+            {{ s.problemId }} {{ s.problemTitle }}</nuxt-link></td>
+          <td><span class="tag" :class="verdictColor[s.verdict] ? verdictColor[s.verdict] : 'is-black'">
+            {{ s.verdictTitle }}
+            {{ showTest.includes(s.verdict) ? "#" + s.testCaseNumber : ''}}
+          </span></td>
+          <td v-if="!short" class="has-text-right">{{ s.time }} ms</td>
+          <td v-if="!short" class="has-text-right">{{ s.memory }} KiB</td>
+          <td v-if="!short" class="has-text-right">{{ s.sourceCodeSize }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <api-view-pending v-else-if="pending"></api-view-pending>
+    <api-view-error v-else></api-view-error>
   </div>
 </template>
 
@@ -63,6 +68,7 @@ interface Submission {
 
 const props = defineProps({
   query: {type: Object, default: {}},
+  short: {type: Boolean, default: false},
 })
 const page = ref(1);
 
@@ -83,3 +89,9 @@ const verdictColor: any = {
 }
 const showTest = [2, 3, 4]
 </script>
+
+<style>
+.avoid-wrap {
+  display: inline-block;
+}
+</style>
