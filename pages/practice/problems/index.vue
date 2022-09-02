@@ -64,7 +64,8 @@
 </template>
 
 <script setup lang="ts">
-import {Paginated, prefix} from '~/api';
+import {Paginated, prefix, getHeaders, headersRef, get} from '~/api';
+import {useAuth} from '~/api/auth'
 
 const page = ref(1)
 const totalPagesCache = ref(-1)
@@ -86,8 +87,7 @@ const filter = reactive({
 
 let prevSuffix = ''
 
-const getUrl = () => {
-  console.log('url')
+const getUrl = computed(() => {
   let opts: any = {
     ordering: order.dec ? '-' + order.by : order.by,
     title: filter.title,
@@ -108,9 +108,15 @@ const getUrl = () => {
   prevSuffix = suffix;
   url += `page=${page.value}&` + suffix;
   return url;
-}
+})
 
-const {data, error, pending, refresh} = useLazyFetch<Paginated>(getUrl)
+const {data, error, pending, refresh} = useAsyncData<Paginated>(
+  () => $fetch(getUrl.value, {headers: headersRef.value}),
+  {
+    watch: [getUrl, useAuth()],
+    initialCache: false,
+  }
+)
 
 watch(data, () => {
   if (data.value) {
