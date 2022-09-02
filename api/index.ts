@@ -7,7 +7,7 @@ export interface Paginated<T = any> {
   data: T[]
 }
 
-export const prefix = 'http://193.164.17.14:8008/angular/'
+export const prefix = 'https://cpython.uz/angular/'
 
 const sanitize = (url: string) => {
   if (url[0] == '/') url = url.slice(1)
