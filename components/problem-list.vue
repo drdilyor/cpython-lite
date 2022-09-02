@@ -27,8 +27,7 @@
             {{ tag.name }}
           </span>
         </td>
-        <td><span class="tag has-text-white" :class="'has-background-' +difficultyColor[problem.difficulty]">
-          {{ problem.difficultyTitle }}</span></td>
+        <td><problem-difficulty :problem="problem"></problem-difficulty></td>
         <td><ui-rating :value="problem.rating"></ui-rating></td>
         <td><span class="tag is-info is-light">
           {{ problem.solved }}/{{ problem.attemptsCount }}
@@ -76,15 +75,4 @@ const getClass = (problem: Problem) => {
   }
   return res;
 }
-
-const difficultyColor = [
-  '',
-  'info',
-  'info-dark',
-  'success',
-  'success-dark',
-  'warning-dark',
-  'danger-dark',
-  'black'
-]
 </script>
