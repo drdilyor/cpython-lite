@@ -21,8 +21,14 @@ export const getHeaders = (): object => {
   return {};
 }
 
-export const get = (url: string, opts: RequestInit) =>
-  fetch(prefix + sanitize(url), opts)
+export const get = (url: string, {headers, ...opts}: RequestInit = {}) =>
+  fetch(prefix + sanitize(url), {
+    headers: {
+      ...getHeaders(),
+      ...headers,
+    },
+    ...opts,
+  })
 
 interface ApiRequestInit extends RequestInit {
   body: any
