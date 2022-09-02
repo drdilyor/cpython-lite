@@ -35,10 +35,7 @@
             <td v-if="!short">{{ s.user.username }}</td>
             <td v-if="!short"><nuxt-link :to="`/practice/problems/${s.problemId}`">
               {{ s.problemId }} {{ s.problemTitle }}</nuxt-link></td>
-            <td><span class="tag" :class="verdictColor[s.verdict] ? verdictColor[s.verdict] : 'is-black'">
-              {{ s.verdictTitle }}
-              {{ showTest.includes(s.verdict) ? "#" + s.testCaseNumber : ''}}
-            </span></td>
+            <td><submission-verdict :submission="s"></submission-verdict></td>
             <td v-if="!short" class="has-text-right">{{ s.time }} ms</td>
             <td v-if="!short" class="has-text-right">{{ s.memory }} KiB</td>
             <td v-if="!short" class="has-text-right">{{ s.sourceCodeSize }}</td>
@@ -88,14 +85,6 @@ const {data: submissions, error, pending, refresh} = useLazyFetch<Paginated<Subm
   {initialCache: false},
 );
 
-const verdictColor: any = {
-  1: 'is-success',
-  2: 'is-danger is-light',
-  3: 'is-danger is-light',
-  4: 'is-danger is-light',
-  5: 'is-warning',
-}
-const showTest = [2, 3, 4]
 </script>
 
 <style>
