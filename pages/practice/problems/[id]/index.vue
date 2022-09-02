@@ -30,14 +30,7 @@
             <div class="is-size-5 has-text-weight-bold has-background-primary-light has-text-primary-dark samples-label">Output</div>
             <template v-for="sample in prob.sampleTests">
               <template v-for="io in [sample.input, sample.output]">
-                <div class="outer">
-                  <button class="button" @click="copy(io)">
-                    <mdi name="copy"></mdi>
-                  </button>
-                  <div class="text is-family-monospace">
-                    {{ io }}
-                  </div>
-                </div>
+                <ui-copy-code class="sample" :content="io"></ui-copy-code>
               </template>
             </template>
           </div>
@@ -77,11 +70,6 @@ const {data: prob, pending, error} = useLazyFetch<any>(
   `${prefix}problems/${route.params.id}/`,
   {initialCache: false},
 )
-
-const copy = (text: string) => {
-  navigator.clipboard.writeText(text)
-  .then(() => {})
-}
 </script>
 
 <style lang="scss">
@@ -89,9 +77,6 @@ const copy = (text: string) => {
 
 .samples {
   display: grid;
-}
-.samples .text {
-  white-space: pre;
 }
 
 @media (min-width: $tablet) {
@@ -123,26 +108,16 @@ const copy = (text: string) => {
   align-self: start;
 }
 
-.samples > .outer {
+.samples > .sample {
   position: relative;
   padding: 1em;
   min-height: 1em * 2 + 3em;
 }
-.samples > .outer:hover {
+.samples > .sample:hover {
   background: $grey-lightest;
 }
 .samples > .samples-label,
-.samples > .outer {
+.samples > .sample {
   border-radius: 0.25em;
-}
-.samples .button {
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  opacity: 0;
-}
-.samples > .outer:hover .button {
-  opacity: 1;
-  transition: opacity .3s;
 }
 </style>

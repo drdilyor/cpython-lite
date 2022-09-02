@@ -110,7 +110,7 @@ const getUrl = () => {
   return url;
 }
 
-const {data, error, pending, refresh} = useFetch<Paginated>(getUrl)
+const {data, error, pending, refresh} = useLazyFetch<Paginated>(getUrl)
 
 watch(data, () => {
   if (data.value) {
