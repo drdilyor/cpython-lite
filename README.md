@@ -13,12 +13,14 @@ Open http://localhost:3000
   - [ ] Problem preview
   - [x] Filters and tags
 - [ ] Contest List
-- [ ] Submissions (next)
+- [x] Submissions
   - [x] Submitting
-  - [ ] Code editor (?)
-  - [ ] Last submissions on problem detail
+  - [ ] Code editor (unlikely)
+  - [x] Last submissions on problem detail
   - [x] Submissions page
-- [ ] User profile
+- [ ] User profile (next)
+  - [ ] User detail
+  - [ ] Ranking
 - [x] User auth
 - [ ] Contests
 - [ ] Blogs
