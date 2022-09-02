@@ -3,7 +3,7 @@
     <div class="column">
       <div class="box">
         <h1 class="is-size-3 has-text-centered mb-4">Submission</h1>
-        <api-view :url="`/attempts/${$route.params.id}`"
+        <api-view :url="`/attempts/${$route.params.id}/`"
           v-slot="{data: submission}">
           <submission-list :list="[submission]"></submission-list>
           <h2 class="is-size-5 mb-2">Code</h2>

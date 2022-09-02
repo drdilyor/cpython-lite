@@ -69,7 +69,7 @@ const submit = () => {
     },
   })
   .then(() => {
-    useRouter().replace(`/practice/problems/${problemId.value}/submissions/`)
+    useRouter().replace(`/practice/problems/${problemId.value}/submissions`)
   })
   .catch(err => error.value = err)
   .finally(() => pending.value = false)

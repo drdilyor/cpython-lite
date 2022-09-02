@@ -27,7 +27,7 @@ const getUrlQuery = (opts: object) => Object.entries(opts)
   .join('&')
 
 const {data: submissions, error, pending, refresh} = useLazyFetch<Paginated>(
-  () => `${prefix}attempts?${getUrlQuery({...props.query, page: page.value})}`,
+  () => `${prefix}attempts/?${getUrlQuery({...props.query, page: page.value})}`,
   {initialCache: false},
 );
 
