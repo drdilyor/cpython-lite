@@ -43,6 +43,7 @@
       <div class="box">
         <h2 class="is-size-3 has-text-centered mb-4">Problem tags</h2>
         <p v-if="prob" class="tags">
+          <problem-difficulty :problem="prob"></problem-difficulty>
           <span v-for="tag in prob.tags" class="tag">{{ tag.name }}</span>
         </p>
       </div>
