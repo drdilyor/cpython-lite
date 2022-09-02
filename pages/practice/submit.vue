@@ -9,5 +9,8 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+definePageMeta({
+  middleware: ['auth'],
+})
 </script>

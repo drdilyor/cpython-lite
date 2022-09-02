@@ -11,14 +11,14 @@ export const prefix = 'https://cpython.uz/angular/'
 
 const sanitize = (url: string) => {
   if (url[0] == '/') url = url.slice(1)
-  return url;
+  return url
 }
 
 export const getHeaders = (): object => {
   const token = useAuth().value.token
   console.log({token})
   if (token) return {'Authorization': 'Token ' + token}
-  return {};
+  return {}
 }
 
 export const get = (url: string, {headers, ...opts}: RequestInit = {}) =>
