@@ -67,12 +67,31 @@ const props = defineProps({
 const {list} = toRefs(props);
 
 const getClass = (problem: Problem) => {
-  const res = [];
   if (problem.hasSolved) {
-    res.push('has-background-success has-text-white');
+    return 'problem--solved'
   } else if (problem.hasAttempted) {
-    res.push('has-background-warning');
+    return 'problem--attempted'
+  } else {
+    return ''
   }
-  return res;
 }
 </script>
+
+<style lang="scss">
+// not using scoped, because this component is already slow to render
+@import "~/assets/variables.scss";
+
+.problem--solved {
+  background: darken($success-light, 10%);
+  &:hover {
+    background: $success-light !important;
+  }
+}
+
+.problem--attempted {
+  background: darken($warning-light, 10%);
+  &:hover {
+    background: $warning-light !important;
+  }
+}
+</style>
