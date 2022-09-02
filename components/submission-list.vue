@@ -1,5 +1,5 @@
 <template>
-  <p v-if="!submissions.length" class="has-text-centered">
+  <p v-if="!list.length" class="has-text-centered">
     No submissions yet.
   </p>
   <table v-else class="table is-fullwidth is-hoverable">
@@ -15,7 +15,7 @@
       <th v-if="!short" class="has-text-right">Code size</th>
     </thead>
     <tbody>
-      <tr v-for="s in submissions">
+      <tr v-for="s in list">
         <td><nuxt-link :to="`/practice/submissions/${s.id}`">
           {{ s.id }}</nuxt-link></td>
         <td>
@@ -53,7 +53,8 @@ interface Submission {
 }
 
 const props = defineProps({
-  submissions: {type: Array<Submission>, required: true},
+  list: {type: Array<Submission>, required: true},
   short: {type: Boolean, default: false},
 })
+console.log(props.list)
 </script>

@@ -44,13 +44,15 @@
         </api-view>
       </div>
     </div>
-    <div class="column">
+    <div v-if="auth.user" class="column">
       <div class="box">
         <h2 class="is-size-3 has-text-centered mb-4">Last submissions</h2>
-        <submissions-inner short :query="{
-          'problem_id': +$route.params.id,
-          'username': auth.user ? auth.user.username : null,
-        }"></submissions-inner>
+        <api-view
+          :url="`/attempts/?problem_id=${$route.params.id}&username=${auth.user.username}`"
+          v-slot="{data: submissions}"
+          >
+          <submission-list short :list="submissions.data"></submission-list>
+        </api-view>
       </div>
     </div>
   </div>

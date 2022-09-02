@@ -6,7 +6,7 @@
       :cur-page="page"
       :total-pages="submissions ? submissions.pagesCount : 1"
       @set-page="v => page = v"></ui-pagination>
-    <submission-list v-if="submissions !== null" :submissions="submissions.data"></submission-list>
+    <submission-list v-if="submissions !== null" :list="submissions.data"></submission-list>
     <api-view-pending v-else-if="pending"></api-view-pending>
     <api-view-error v-else></api-view-error>
   </div>
