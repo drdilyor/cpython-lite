@@ -56,5 +56,4 @@ const props = defineProps({
   list: {type: Array<Submission>, required: true},
   short: {type: Boolean, default: false},
 })
-console.log(props.list)
 </script>

@@ -3,7 +3,7 @@
     <div class="column is-two-thirds-desktop is-three-quarters-fullhd">
       <div class="box">
         <practice-tabs :problem-id="+$route.params.id"></practice-tabs>
-        <api-view :url="`/problems/${$route.params.id}`" v-slot="{data: prob}">
+        <template v-if="prob">
           <div class="is-flex is-flex-direction-column is-align-items-center">
             <h1 class="is-size-3 mb-4">{{ prob.id }}. {{ prob.title}}</h1>
             <p class="mb-2">Author: {{ prob.authorUsername }}</p>
@@ -41,11 +41,19 @@
               </template>
             </template>
           </div>
-        </api-view>
+        </template>
+        <api-view-pending v-else-if="pending"></api-view-pending>
+        <api-view-error v-else></api-view-error>
       </div>
     </div>
-    <div v-if="auth.user" class="column">
+    <div class="column">
       <div class="box">
+        <h2 class="is-size-3 has-text-centered mb-4">Problem tags</h2>
+        <p v-if="prob" class="tags">
+          <span v-for="tag in prob.tags" class="tag">{{ tag.name }}</span>
+        </p>
+      </div>
+      <div v-if="auth.user" class="box">
         <h2 class="is-size-3 has-text-centered mb-4">Last submissions</h2>
         <api-view
           :url="`/attempts/?problem_id=${$route.params.id}&username=${auth.user.username}`"
@@ -60,8 +68,15 @@
 
 <script setup lang="ts">
 import {useAuth} from '~/api/auth';
+import {prefix} from '~/api';
 
+const route = useRoute();
 const auth = useAuth();
+
+const {data: prob, pending, error} = useLazyFetch<any>(
+  `${prefix}problems/${route.params.id}/`,
+  {initialCache: false},
+)
 
 const copy = (text: string) => {
   navigator.clipboard.writeText(text)

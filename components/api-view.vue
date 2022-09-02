@@ -56,7 +56,6 @@ const fetchData = () => {
   .catch(err => d.error = err)
   .finally(() => {
     d.pending = false
-    console.log('done')
     emit('done', d)
   })
 }
