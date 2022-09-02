@@ -10,12 +10,14 @@ interface User {
   token: string
 }
 
-const localStorageKey = 'auth'
-
-export const useAuth  = () => useState<{
+interface AuthState {
   token: string | null,
   user: User | null,
-}>('auth', () => {
+}
+
+const localStorageKey = 'auth'
+
+export const useAuth = () => useState<AuthState>('auth', () => {
   const val = localStorage.getItem(localStorageKey)
   if (val) return JSON.parse(val)
   return {token: null, user: null}
@@ -48,8 +50,10 @@ export const login = async (credentials: Credentials) => {
     if (!json.success)
       return json.error
     const auth = useAuth()
-    auth.value.token = json.user.token
-    auth.value.user = json.user
+    auth.value = {
+      token: json.user.token,
+      user: json.user,
+    }
     save()
     return false
   } catch (e) {
@@ -59,7 +63,9 @@ export const login = async (credentials: Credentials) => {
 
 export const logout = () => {
   const auth = useAuth()
-  auth.value.token = null
-  auth.value.user = null
+  auth.value = {
+    token: null,
+    user: null,
+  }
   save()
 }

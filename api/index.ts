@@ -14,12 +14,12 @@ const sanitize = (url: string) => {
   return url
 }
 
-export const getHeaders = (): object => {
+export const getHeaders = (): HeadersInit => {
   const token = useAuth().value.token
-  console.log({token})
   if (token) return {'Authorization': 'Token ' + token}
   return {}
 }
+export const headersRef = computed(getHeaders)
 
 export const get = (url: string, {headers, ...opts}: RequestInit = {}) =>
   fetch(prefix + sanitize(url), {
