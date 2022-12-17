@@ -1,7 +1,15 @@
 <template>
   <div>
-    <api-view :url="`/users/${$route.params.id}`"
-      v-slot="{data: user}">
+    <api-multi-view :url="[
+        `/users/${$route.params.id}/`,
+        `/users/${$route.params.id}/educations/`,
+        `/users/${$route.params.id}/info/`,
+        `/users/${$route.params.id}/ratings/`,
+        `/users/${$route.params.id}/skills/`,
+        `/users/${$route.params.id}/technologies/`,
+        `/users/${$route.params.id}/work-experiences/`,
+      ]"
+      v-slot="{data: [user, educations, info, ratings, skills, techs, work]}">
       <figure class="profile-cover">
         <img :src="user.coverPhoto">
       </figure>
@@ -29,8 +37,23 @@
             </div>
           </div>
         </div>
+        <div class="columns">
+          <div class="column is-one-third">
+            <div class="box">
+              <h3 class="is-size-5 has-text-centered">Profile</h3>
+            </div>
+            <div class="box">
+              <!-- rating -->
+            </div>
+          </div>
+          <div class="column">
+            <div class="box">
+              <!-- skills -->
+            </div>
+          </div>
+        </div>
       </div>
-    </api-view>
+    </api-multi-view>
   </div>
 </template>
 

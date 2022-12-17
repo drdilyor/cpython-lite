@@ -6,8 +6,8 @@
 import {useAuth} from '~/api/auth'
 const auth = useAuth();
 if (auth.value.user == null) {
-  useRouter().push('/profile/login')
+  useRouter().replace('/profile/login')
 } else {
-  useRouter().push('/profile/' + auth.value.user.username)
+  useRouter().replace('/profile/' + auth.value.user.username)
 }
 </script>
