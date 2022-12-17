@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar mb-2" role="navigation" aria-label="main navigation">
+  <nav class="navbar" :class="marginless ? '' : 'mb-2'" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <nuxt-link class="navbar-item" to="/">
         <img src="~/assets/logo.png" width="32">
@@ -68,7 +68,11 @@
 <script setup>
 import {useAuth, logout} from '~/api/auth'
 
+const props = defineProps({
+  marginless: {type: Boolean, default: false},
+})
 const auth = useAuth()
+
 
 const expanded = ref(false)
 const toggleExpanded = () => expanded.value ^= 1
