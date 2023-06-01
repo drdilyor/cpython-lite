@@ -12,5 +12,8 @@
     "@nuxtjs/tailwindcss": "^6.7.0",
     "@types/node": "^18",
     "nuxt": "^3.5.2"
+  },
+  "dependencies": {
+    "@mdi/js": "^7.2.96"
   }
 }

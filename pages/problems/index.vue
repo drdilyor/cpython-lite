@@ -1,31 +1,37 @@
 <template>
-  <div>
-    <h1>Problems</h1>
+  <div class="p-4">
+    <h1 class="text-4xl pb-4">Problems</h1>
     <table class="w-full">
       <thead class="bg-primary-600 text-white">
-        <td class="px-4 py-2">ID</td>
-        <td class="px-4 py-2">Name</td>
-        <td class="px-4 py-2">Tags</td>
-        <td class="px-4 py-2">Difficulty</td>
-        <td class="px-4 py-2">Rating</td>
-        <td class="px-4 py-2">Attempts</td>
+        <td class="p-2">ID</td>
+        <td class="p-2">Name</td>
+        <td class="p-2 hidden lg:table-cell">Tags</td>
+        <td class="p-2">Difficulty</td>
+        <td class="p-2 hidden sm:table-cell">Rating</td>
+        <td class="p-2 hidden sm:table-cell">Attempts</td>
       </thead>
       <tbody>
         <tr v-for="problem in problems.data" :class="[problem.hasSolved ? 'bg-green-100' : problem.hasAttempted ? 'bg-red-100' : '']">
-          <td class="px-4 py-2">{{ problem.id }}</td>
-          <td class="px-4 py-2">{{ problem.title }}</td>
-          <td class="px-4 py-2">
+          <td class="p-2">{{ problem.id }}</td>
+          <td class="p-2">
+            <nuxt-link :to="`/problems/${problem.id}`">{{ problem.title }}</nuxt-link>
+          </td>
+          <td class="p-2 hidden lg:table-cell">
             <span v-for="tag in problem.tags" :key="tag.id" class="border-2 rounded border-slate-500 py-1 px-2 mr-1 bg-slate-100">
               {{ tag.name }}
             </span>
           </td>
-          <td class="px-4 py-2">
-            <span class="py-1 px-2 rounded border-2" :class="difficultyClass[problem.difficulty]">
+          <td class="p-2">
+            <span class="py-1 px-2 rounded border-2 inline-block" :class="difficultyClass[problem.difficulty]">
               {{ difficultyTitle[problem.difficulty] }}
             </span>
           </td>
-          <td class="px-4 py-2">{{ problem.likesCount }}/{{ problem.dislikesCount }}</td>
-          <td class="px-4 py-2">{{ problem.attemptsCount }}/{{ problem.solved }}</td>
+          <td class="p-2 hidden sm:flex items-center space-x-1">
+            <span>{{ problem.likesCount }}</span>
+            <ui-icon name="thumbsUpDown" small></ui-icon>
+            <span>{{ problem.dislikesCount }}</span>
+          </td>
+          <td class="p-2 hidden sm:table-cell">{{ problem.attemptsCount }}/{{ problem.solved }}</td>
         </tr>
       </tbody>
     </table>
