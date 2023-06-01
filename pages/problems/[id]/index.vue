@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import { langName } from '@/components/ui-language.vue'
 
 const problem = {
     "id": 338,
@@ -150,18 +151,6 @@ const problem = {
     "image": null,
     "translateAuthor": null,
     "author": 207
-}
-
-const langName: {[k:string]: string} = {
-  py: 'Python',
-  cpp: 'C++',
-  hs: 'Haskell',
-  r: 'R',
-  kt: 'Kotlin',
-  c: 'C',
-  php: 'PHP',
-  cs: 'C#',
-  js: 'JavaScript'
 }
 
 const route = useRoute()
