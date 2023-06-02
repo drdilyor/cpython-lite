@@ -1,11 +1,16 @@
 <template>
   <h1 class="text-4xl my-4">{{ symbol || problem.id }}. {{ problem.title }}</h1>
   <ui-mathjax :body="problem.body"></ui-mathjax>
-  <hr class="mt-4">
-  <h2 class="text-2xl mt-4 mb-2">Input</h2>
-  <ui-mathjax :body="problem.inputData"></ui-mathjax>
-  <h2 class="text-2xl mt-4 mb-2">Output</h2>
-  <ui-mathjax :body="problem.outputData"></ui-mathjax>
+
+  <hr v-if="problem.inputData || problem.outputData" class="mt-4">
+  <template v-if="problem.inputData">
+    <h2 class="text-2xl mt-4 mb-2">Input</h2>
+    <ui-mathjax :body="problem.inputData"></ui-mathjax>
+  </template>
+  <template v-if="problem.outputData">
+    <h2 class="text-2xl mt-4 mb-2">Output</h2>
+    <ui-mathjax :body="problem.outputData"></ui-mathjax>
+  </template>
 
   <template v-for="(sample, index) in problem.sampleTests">
     <hr class="mt-4">
