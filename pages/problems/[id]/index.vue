@@ -1,31 +1,7 @@
 <template>
   <div class="p-4">
     <problem-tabs :id="+route.params.id"></problem-tabs>
-    <h1 class="text-4xl my-4">{{ problem.id }}. {{ problem.title }}</h1>
-    <ui-mathjax :body="problem.body"></ui-mathjax>
-    <hr class="mt-4">
-    <h2 class="text-2xl mt-4 mb-2">Input</h2>
-    <ui-mathjax :body="problem.inputData"></ui-mathjax>
-    <h2 class="text-2xl mt-4 mb-2">Output</h2>
-    <ui-mathjax :body="problem.outputData"></ui-mathjax>
-
-    <template v-for="(sample, index) in problem.sampleTests">
-      <hr class="mt-4">
-      <h2 class="text-2xl mt-4 mb-2">Sample input {{ index+1 }}</h2>
-      <pre>{{ sample.input }}</pre>
-      <h2 class="text-2xl mt-4 mb-2">Sample output {{ index+1 }}</h2>
-      <pre>{{ sample.output }}</pre>
-    </template>
-    <hr class="mt-4 mb-2">
-    
-    <div class="grid gap-y-2" style="grid-template-columns: auto 1fr">
-      <label class="font-bold p-2 text-right" for="submit-lang">Language</label>
-      <select class="max-w-2xl" name="submit-lang">
-        <option v-for="lang in problem.availableLanguages" :value="lang.lang">{{ langName[lang.lang] }}</option>
-      </select>
-      <label class="font-bold p-2 text-right" for="submit-source">Source code</label>
-      <textarea class="font-mono border-2" name="submit-source" rows="10"></textarea>
-    </div>
+    <problem-statement :problem="problem"></problem-statement>
   </div>
 </template>
 
