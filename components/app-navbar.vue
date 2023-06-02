@@ -6,6 +6,7 @@
       <span class="text-secondary-500 relative bottom-1">Lite</span>
     </nuxt-link>
     <nuxt-link class="flex items-center px-2 hover:bg-gray-200" to="/problems">Problems</nuxt-link>
+    <nuxt-link class="flex items-center px-2 hover:bg-gray-200" to="/contests">Contests</nuxt-link>
   </div>
 </template>
 
