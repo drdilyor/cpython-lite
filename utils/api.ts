@@ -7,7 +7,11 @@ type Endpoint = `/${string}`
 export const $api = <T>(method: Method, endpoint: Endpoint, {body, query} : {body?: object, query?: object} = {}) => {
   if (method != 'get' && !body)
     console.error('$api: must provide body with this request method')
-  return $fetch<T>(apiRoot + endpoint, {method, body, query})
+  const headers: {[k: string]: string} = {}
+  const token = useToken()
+  if (token.value)
+    headers['Authorization'] = 'Token ' + token.value
+  return $fetch<T>(apiRoot + endpoint, {method, body, query, headers})
 }
 
 export const $get = <T>(endpoint: Endpoint, opts: {query?: object} = {}) => $api<T>('get', endpoint, opts)
