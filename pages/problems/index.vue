@@ -3,8 +3,35 @@
     <h1 class="text-4xl mb-4">Problems</h1>
     <ui-pagination v-if="problems" :cur-page="curPage" :total-pages="problems ? problems.pagesCount : 1"
       @set-page="page => curPage = page"></ui-pagination>
+    <div v-if="problems" class="flex items-center w-full px-4 py-2 bg-gray-100">
+      <div class="flex items-center space-x-2 mr-4">
+        <ui-input id="title" breakpoint="-" v-model="filterTitle" lazy>
+          <template #label>Title</template>
+        </ui-input>
+      </div>
+      <div class="flex items-center space-x-2 mr-4">
+        <ui-input id="title" is="select" breakpoint="-" v-model="filterDifficulty">
+          <template #label>Difficulty</template>
+          <template #control-inner>
+            <option value="">All</option>
+            <option v-for="difficulty in difficulties" :value="difficulty.value">{{ difficulty.name }}</option>
+          </template>
+        </ui-input>
+      </div>
+      <div class="flex items-center space-x-2 mr-4" v-if="user.user">
+        <ui-input id="status" is="select" breakpoint="-" v-model="filterSolvedStatus">
+          <template #label>Status</template>
+          <template #control-inner>
+            <option value="">All</option>
+            <option value="solved" class="text-green-700">Solved</option>
+            <option value="unsolved" class="text-red-700">Unsolved</option>
+            <option value="unattempted" class="">Unattempted</option>
+          </template>
+        </ui-input>
+      </div>
+    </div>
     <error-loading-view v-bind="{ pending, error, refresh }">
-      <table class="w-full" v-if="problems">
+      <table class="w-full" v-if="problems.total">
         <thead class="bg-primary-600 text-white">
           <td class="p-2">ID</td>
           <td class="p-2">Name</td>
@@ -40,18 +67,20 @@
           </tr>
         </tbody>
       </table>
+      <p v-else class="p-2">No problems found.</p>
     </error-loading-view>
   </div>
 </template>
 
 <script setup lang="ts">
+const user = useUser()
+
 const curPage = ref(1)
 const filterTitle = ref('')
 const filterDifficulty = ref('')
-const filterSolvedStatus = ref('' as '' | 'solved' | 'unsolved' | 'unknown')
+const filterSolvedStatus = ref('' as '' | 'solved' | 'unsolved' | 'unattempted')
 
 const { data: problems, error, pending, refresh } = useAsyncData(
-  'problems',
   () => $get<any>('/problems', {
     query: {
       ordering: 'id',
@@ -62,24 +91,26 @@ const { data: problems, error, pending, refresh } = useAsyncData(
       ...(
         filterSolvedStatus.value == 'solved' ? { has_solved: 1 } :
         filterSolvedStatus.value == 'unsolved' ? { has_solved: 0, has_attempted: 1 } :
-        filterSolvedStatus.value == 'unknown' ? { has_solved: 0, has_attempted: 0 } : {}
+        filterSolvedStatus.value == 'unattempted' ? { has_solved: 0, has_attempted: 0 } : {}
       )
     }
   }),
   {
     lazy: true,
-    watch: [curPage],
+    watch: [curPage, filterTitle, filterDifficulty, filterSolvedStatus],
   }
 )
+
+watch([filterTitle, filterDifficulty, filterSolvedStatus], () => curPage.value = 1)
 
 const difficulties = [
   {
     "value": 1,
-    "name": "Boshlangich"
+    "name": "Beginner"
   },
   {
     "value": 2,
-    "name": "Asoslar"
+    "name": "Basic"
   },
   {
     "value": 3,
@@ -87,19 +118,19 @@ const difficulties = [
   },
   {
     "value": 4,
-    "name": "O'rtacha"
+    "name": "Medium"
   },
   {
     "value": 5,
-    "name": "Ilg'or"
+    "name": "Advanced"
   },
   {
     "value": 6,
-    "name": "Qiyin"
+    "name": "Hard"
   },
   {
     "value": 7,
-    "name": "Juda qiyin"
+    "name": "Extremal"
   }
 ]
 
