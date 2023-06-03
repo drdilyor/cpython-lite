@@ -36,3 +36,14 @@ export const fetchUser = async () => {
 }
 
 export const useUser = () => user
+
+export const loginUser = async (username: string, password: string) => {
+  const res: {token?: string} = await $post('#api-token-auth/', { // last slash in url is important!
+    body: {username, password}
+  })
+  if (res.token) {
+    setToken(res.token)
+    await fetchUser()
+  }
+  else throw createError({ statusCode: 400, data: res })
+}
