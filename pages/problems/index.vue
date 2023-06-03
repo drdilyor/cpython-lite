@@ -1,12 +1,9 @@
 <template>
   <div class="p-4">
     <h1 class="text-4xl mb-4">Problems</h1>
-    <ui-pagination
-      v-if="problems"
-      :cur-page="curPage"
-      :total-pages="problems ? problems.pagesCount : 1"
+    <ui-pagination v-if="problems" :cur-page="curPage" :total-pages="problems ? problems.pagesCount : 1"
       @set-page="page => curPage = page"></ui-pagination>
-    <error-loading-view v-bind="{pending, error, refresh}">
+    <error-loading-view v-bind="{ pending, error, refresh }">
       <table class="w-full" v-if="problems">
         <thead class="bg-primary-600 text-white">
           <td class="p-2">ID</td>
@@ -17,13 +14,15 @@
           <td class="p-2 hidden sm:table-cell">Attempts</td>
         </thead>
         <tbody>
-          <tr v-for="problem in problems.data" class="hover:bg-gray-100" :class="[problem.hasSolved ? 'bg-green-100' : problem.hasAttempted ? 'bg-red-100' : '']">
+          <tr v-for="problem in problems.data" class="hover:bg-gray-100"
+            :class="[problem.hasSolved ? 'bg-green-100' : problem.hasAttempted ? 'bg-red-100' : '']">
             <td class="p-2">{{ problem.id }}</td>
             <td class="p-2">
               <nuxt-link :to="`/problems/${problem.id}`">{{ problem.title }}</nuxt-link>
             </td>
             <td class="p-2 hidden lg:table-cell">
-              <span v-for="tag in problem.tags" :key="tag.id" class="border-2 rounded border-slate-500 py-1 px-2 mr-1 bg-slate-100">
+              <span v-for="tag in problem.tags" :key="tag.id"
+                class="border-2 rounded border-slate-500 py-1 px-2 mr-1 bg-slate-100">
                 {{ tag.name }}
               </span>
             </td>
@@ -47,55 +46,66 @@
 
 <script setup lang="ts">
 const curPage = ref(1)
+const filterTitle = ref('')
+const filterDifficulty = ref('')
+const filterSolvedStatus = ref('' as '' | 'solved' | 'unsolved' | 'unknown')
 
-const {data: problems, error, pending, refresh} = useAsyncData(
+const { data: problems, error, pending, refresh } = useAsyncData(
   'problems',
   () => $get<any>('/problems', {
     query: {
       ordering: 'id',
       page_size: 50,
       page: curPage.value,
+      title: filterTitle.value || null,
+      difficulty: filterDifficulty.value || null,
+      ...(
+        filterSolvedStatus.value == 'solved' ? { has_solved: 1 } :
+        filterSolvedStatus.value == 'unsolved' ? { has_solved: 0, has_attempted: 1 } :
+        filterSolvedStatus.value == 'unknown' ? { has_solved: 0, has_attempted: 0 } : {}
+      )
     }
   }),
-  { lazy: true, watch: [curPage] }
+  {
+    lazy: true,
+    watch: [curPage],
+  }
 )
 
 const difficulties = [
-    {
-        "value": 1,
-        "name": "Boshlangich"
-    },
-    {
-        "value": 2,
-        "name": "Asoslar"
-    },
-    {
-        "value": 3,
-        "name": "Normal"
-    },
-    {
-        "value": 4,
-        "name": "O'rtacha"
-    },
-    {
-        "value": 5,
-        "name": "Ilg'or"
-    },
-    {
-        "value": 6,
-        "name": "Qiyin"
-    },
-    {
-        "value": 7,
-        "name": "Juda qiyin"
-    }
+  {
+    "value": 1,
+    "name": "Boshlangich"
+  },
+  {
+    "value": 2,
+    "name": "Asoslar"
+  },
+  {
+    "value": 3,
+    "name": "Normal"
+  },
+  {
+    "value": 4,
+    "name": "O'rtacha"
+  },
+  {
+    "value": 5,
+    "name": "Ilg'or"
+  },
+  {
+    "value": 6,
+    "name": "Qiyin"
+  },
+  {
+    "value": 7,
+    "name": "Juda qiyin"
+  }
 ]
 
-const difficultyTitle = computed(() =>
-  Object.fromEntries(difficulties.map(({value, name}) => [value, name]))
-)
+const difficultyTitle = Object.fromEntries(difficulties.map(({ value, name }) => [value, name]))
 
-const difficultyClass: {[k: string] : string} = {
+const difficultyClass: { [k: string]: string } = {
   1: 'bg-green-100 border-green-600',
   2: 'bg-cyan-100 border-cyan-600',
   3: 'bg-blue-100 border-blue-600',

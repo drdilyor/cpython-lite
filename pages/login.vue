@@ -1,13 +1,16 @@
 <template>
-  <form @submit.prevent="login" class="max-w-md mt-12 mx-auto" :disabled="pending">
+  <form @submit.prevent="login" class="max-w-md mt-12 mx-auto">
     <!-- TODO: move into ui-input component -->
-    <div class="grid gap-2 py-2" style="grid-template-columns: auto 1fr">
-      <label class="flex items-center" for="username">Username</label>
-      <input class="py-1 px-2 border-2 border-gray-200 rounded hover:border-gray-300 focus:border-primary-600 outline-none" id="username" type="text" v-model="username" required>
-      <label class="flex items-center" for="password">Password</label>
-      <input class="py-1 px-2 border-2 border-gray-200 rounded hover:border-gray-300 focus:border-primary-600 outline-none" id="password" type="password" v-model="password" required>
+    <div class="grid gap-y-2" style="grid-template-columns: auto 1fr">
+      <ui-input id="username" is="input" v-model="username" required :disabled="pending">
+        <template #label>Username</template>
+      </ui-input>
+      <ui-input id="password" is="input" type="password" v-model="password" required :disabled="pending">
+        <template #label>Password</template>
+      </ui-input>
+      <div></div>
+      <div><ui-button type="submit" :disabled="pending">Submit</ui-button></div>
     </div>
-    <ui-button type="submit">Submit</ui-button>
     <ui-error v-if="error" :error="error"></ui-error>
   </form>
 </template>

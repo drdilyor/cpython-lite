@@ -1,11 +1,14 @@
 <template>
-  <form v-if="user.user" class="grid gap-2" style="grid-template-columns: auto 1fr" @submit.prevent="submit">
-    <label class="py-1 text-right" for="submit-lang">Language</label>
-    <select v-model="language" class="py-1 px-2 max-w-2xl bg-transparent border-2 rounded border-gray-200 hover:border-gray-300 focus:border-primary-600 outline-none" name="submit-lang" required :disabled="pending">
-      <option v-for="lang in problem.availableLanguages" :value="lang.lang">{{ langName[lang.lang] }}</option>
-    </select>
-    <label class="py-1 text-right" for="submit-source">Source code</label>
-    <textarea v-model="source" class="py-1 px-2 font-mono border-2 border-gray-200 rounded hover:border-gray-300 focus:border-primary-600 outline-none" name="submit-source" rows="10" required :disabled="pending"></textarea>
+  <form v-if="user.user" class="grid gap-y-2" style="grid-template-columns: auto 1fr" @submit.prevent="submit">
+    <ui-input is="select" id="language" v-model="language" required>
+      <template #label>Language</template>
+      <template #control-inner>
+        <option v-for="lang in problem.availableLanguages" :value="lang.lang">{{ langName[lang.lang] }}</option>
+      </template>
+    </ui-input>
+    <ui-input is="textarea" id="source" v-model="source" :control-attrs="{rows: 10, class: 'font-mono'}">
+      <template #label>Source</template>
+    </ui-input>
     <div></div>
     <div>
       <ui-button type="submit" :disabled="pending">Submit</ui-button>
