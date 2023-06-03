@@ -24,7 +24,7 @@
       </div>
       <template v-if="user.user">
         <div class="absolute invisible group-hover:visible flex flex-col items-stretch w-full bg-white shadow-md">
-          <nuxt-link class="px-2 py-2 hover:bg-gray-200 cursor-pointer" @click="logoutUser">Logout</nuxt-link>
+          <div class="px-2 py-2 hover:bg-gray-200 cursor-pointer" @click="logoutUser">Logout</div>
         </div>
       </template>
     </div>
