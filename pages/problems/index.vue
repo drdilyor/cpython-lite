@@ -6,7 +6,7 @@
       :cur-page="curPage"
       :total-pages="problems ? problems.total : 1"
       @set-page="page => curPage = page"></ui-pagination>
-    <error-loading-view v-bind="{pending, error}">
+    <error-loading-view v-bind="{pending, error, refresh}">
       <table class="w-full" v-if="problems">
         <thead class="bg-primary-600 text-white">
           <td class="p-2">ID</td>
