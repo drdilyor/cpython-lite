@@ -17,7 +17,7 @@
         <ui-user :user="author"></ui-user>
         </template>
       </div>
-      <div v-if="info.status <= 1" class="mt-2">
+      <div v-if="info.status < 1" class="mt-2">
         <contest-registration>
           <template #default="{register, cancel, error, pending}">
             <ui-button @click="registerOrCancel(register, cancel)" :disabled="pending" :outline="info.isRegistered">
