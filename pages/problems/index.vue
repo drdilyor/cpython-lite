@@ -1,6 +1,11 @@
 <template>
   <div class="p-4">
-    <h1 class="text-4xl pb-4">Problems</h1>
+    <h1 class="text-4xl mb-4">Problems</h1>
+    <ui-pagination
+      v-if="problems"
+      :cur-page="curPage"
+      :total-pages="problems ? problems.total : 1"
+      @set-page="page => curPage = page"></ui-pagination>
     <error-loading-view v-bind="{pending, error}">
       <table class="w-full" v-if="problems">
         <thead class="bg-primary-600 text-white">
@@ -41,12 +46,18 @@
 </template>
 
 <script setup lang="ts">
-
+const curPage = ref(1)
 
 const {data: problems, error, pending, refresh} = useAsyncData(
   'problems',
-  () => $get('/problems?ordering=id'),
-  {lazy: true}
+  () => $get<any>('/problems', {
+    query: {
+      ordering: 'id',
+      page_size: 50,
+      page: curPage.value,
+    }
+  }),
+  { lazy: true, watch: [curPage] }
 )
 
 const difficulties = [
