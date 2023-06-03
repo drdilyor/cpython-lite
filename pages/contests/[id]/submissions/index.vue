@@ -3,7 +3,7 @@
     <contest-tabs :id="+route.params.id"></contest-tabs>
     <error-loading-view :pending="contest.pending || pending" :error="contest.error || error" :refresh="() => (refresh(), refreshContest())">
         <h1 class="text-4xl my-4">{{ contest.info.title }}</h1>
-        <submission-list v-if="submissions.length" :submissions="submissions.data"></submission-list>
+        <submission-list v-if="submissions.total" :submissions="submissions.data"></submission-list>
         <p v-else>No submissions.</p>
     </error-loading-view>
   </div>
