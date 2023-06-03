@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <contest-tabs :id="+route.params.id"></contest-tabs>
-    <error-loading-view :pending="contest.pending" :error="contest.error">
+    <error-loading-view :pending="contest.pending" :error="contest.error" :refresh="() => refreshContest()">
       <h1 class="text-4xl my-4">{{ info.title }}</h1>
       <div>{{ info.isRated ? 'Rated' : 'Unrated' }}</div>
       <div>Type: {{ info.type }}</div>
