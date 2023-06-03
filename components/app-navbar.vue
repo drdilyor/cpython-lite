@@ -8,17 +8,24 @@
     <nuxt-link class="flex items-center px-2 hover:bg-gray-200" to="/problems">Problems</nuxt-link>
     <nuxt-link class="flex items-center px-2 hover:bg-gray-200" to="/contests">Contests</nuxt-link>
     <div class="flex-1"></div>
-    <div class="flex items-center px-2 hover:bg-gray-200">
-      <template v-if="user.pending">
-        <div class="w-8 h-8 mr-2 bg-black opacity-10 rounded-full"></div>
-        <div class="w-16 h-4 bg-black opacity-10 rounded"></div>
-      </template>
-      <template v-else-if="user.user">
-        <img class="w-8 h-8 mr-2 rounded-full" :src="user.user.avatar" alt="User avatar">
-        <div>{{ user.user.username }}</div>
-      </template>
-      <template v-else>
-        <ui-button url="/login">Login</ui-button>
+    <div class="group relative">
+      <div class="h-full flex items-center px-2 group-hover:bg-gray-200">
+        <template v-if="user.pending">
+          <div class="w-8 h-8 mr-2 bg-black opacity-10 rounded-full"></div>
+          <div class="w-16 h-4 bg-black opacity-10 rounded"></div>
+        </template>
+        <template v-else-if="user.user">
+          <img class="w-8 h-8 mr-2 rounded-full" :src="user.user.avatar" alt="User avatar">
+          <div>{{ user.user.username }}</div>
+        </template>
+        <template v-else>
+          <ui-button url="/login">Login</ui-button>
+        </template>
+      </div>
+      <template v-if="user.user">
+        <div class="absolute invisible group-hover:visible flex flex-col items-stretch w-full bg-white shadow-md">
+          <nuxt-link class="px-2 py-2 hover:bg-gray-200 cursor-pointer" @click="logoutUser">Logout</nuxt-link>
+        </div>
       </template>
     </div>
   </div>

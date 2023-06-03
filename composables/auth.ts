@@ -3,7 +3,7 @@ export const useToken = () => useState('token', () => {
 })
 
 export const setToken = (token: string) => {
-  useToken().value = 'c4b85aec54c043c64e9c9f7fb7f965af8945f9db'
+  useToken().value = token
   localStorage.setItem('authToken', token)
 }
 
@@ -46,4 +46,9 @@ export const loginUser = async (username: string, password: string) => {
     await fetchUser()
   }
   else throw createError({ statusCode: 400, data: res })
+}
+
+export const logoutUser = async () => {
+  setToken('')
+  await fetchUser()
 }
