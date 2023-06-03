@@ -20,20 +20,9 @@
     <pre>{{ sample.output }}</pre>
   </template>
   <hr class="mt-4 mb-2">
-  
-  <div class="grid gap-y-2" style="grid-template-columns: auto 1fr">
-    <label class="font-bold p-2 text-right" for="submit-lang">Language</label>
-    <select class="max-w-2xl" name="submit-lang">
-      <option v-for="lang in problem.availableLanguages" :value="lang.lang">{{ langName[lang.lang] }}</option>
-    </select>
-    <label class="font-bold p-2 text-right" for="submit-source">Source code</label>
-    <textarea class="font-mono border-2" name="submit-source" rows="10"></textarea>
-  </div>
 </template>
 
 <script setup lang="ts">
-import { langName } from '@/components/ui-language.vue'
-
 const props = defineProps({
   problem: { type: Object, required: true },
   symbol: { type: String, requride: false },

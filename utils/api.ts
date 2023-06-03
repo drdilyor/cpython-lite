@@ -2,8 +2,8 @@
 export const apiHostRoot = 'https://cpython.uz'
 export const apiRoot = 'https://cpython.uz/api'
 
-type Method = 'get' | 'post'
-type Endpoint = `/${string}` | `#${string}`
+export type Method = 'get' | 'post'
+export type Endpoint = `/${string}` | `#${string}`
 
 export const $api = <T>(method: Method, endpoint: Endpoint, {body, query} : {body?: object, query?: object} = {}) => {
   if (method != 'get' && !body)

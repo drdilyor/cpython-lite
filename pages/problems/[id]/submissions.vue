@@ -12,7 +12,11 @@
 const route = useRoute()
 
 const {data: submissions, pending, error, refresh} = useAsyncData(
-  () => $get<any>(`/attempts?problem_id=${route.params.id}`),
+  () => $get<any>(`/attempts`, {
+    query: {
+      problem_id: route.params.id,
+    }
+  }),
   {lazy: true}
 )
 

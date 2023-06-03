@@ -1,12 +1,14 @@
 <template>
   <template v-if="(error as Error).message.includes('Failed to fetch')">
-    <p>
-      Failed to fetch. 
-      <ui-button v-if="refresh" @click="() => refresh!()">Refresh</ui-button>
-    </p>
+    <slot name="network">
+      <p>
+        Network error.
+        <ui-button v-if="refresh" @click="() => refresh!()">Refresh</ui-button>
+      </p>
+    </slot>
   </template>
   <template v-else>
-    {{ showError(error) }}
+    {{ showError(error as any) }}
   </template>
 </template>
 
