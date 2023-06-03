@@ -8,9 +8,9 @@ export const setToken = (token: string) => {
 }
 
 const user = reactive({
-  pending: false,
-  error: null,
-  user: null,
+  pending: false as boolean,
+  error: null as any,
+  user: null as any,
 })
 
 export const fetchUser = async () => {

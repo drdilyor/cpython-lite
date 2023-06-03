@@ -1,39 +1,53 @@
 <template>
   <div class="p-4">
     <contest-tabs :id="+route.params.id"></contest-tabs>
-    <error-loading-view v-bind="{pending, error, refresh}">
-      <h1 class="text-4xl my-4">{{ contest.title }}</h1>
-      <div>{{ contest.isRated ? 'Rated' : 'Unrated' }}</div>
-      <div>Type: {{ contest.type }}</div>
+    <error-loading-view :pending="contest.pending" :error="contest.error">
+      <h1 class="text-4xl my-4">{{ info.title }}</h1>
+      <div>{{ info.isRated ? 'Rated' : 'Unrated' }}</div>
+      <div>Type: {{ info.type }}</div>
       <div>Duration:
-        <ui-time :value="contest.startTime" date time></ui-time>
+        <ui-time :value="info.startTime" date time></ui-time>
         {{ ' - ' }}
-        <ui-time :value="contest.finishTime" date time></ui-time>
+        <ui-time :value="info.finishTime" date time></ui-time>
       </div>
-      <div>Problems: {{ contest.problemsCount }}</div>
+      <div>Problems: {{ info.problemsCount }}</div>
       <div>Author(s): 
-        <template v-for="(author, index) in contest.authors">
+        <template v-for="(author, index) in info.authors">
         {{ index == 0 ? '' : ', ' }}
         <ui-user :user="author"></ui-user>
         </template>
       </div>
-      <div class="mt-2">
-        <ui-button v-if="!contest.isRegistered" @click="contest.isRegistered = true, $forceUpdate()">Register</ui-button>
-        <ui-button v-else outline disabled>Registered</ui-button>
+      <div v-if="info.status <= 1" class="mt-2">
+        <contest-registration>
+          <template #default="{register, cancel, error, pending}">
+            <ui-button @click="registerOrCancel(register, cancel)" :disabled="pending" :outline="info.isRegistered">
+              {{ info.isRegistered ? 'Registered' : 'Register' }}
+            </ui-button>
+            <ui-error v-if="error" :error="error" :refresh="() => registerOrCancel(register, cancel)"></ui-error>
+          </template>
+        </contest-registration>
       </div>
 
       <hr class="my-4">
-      <div v-html="contest.description"></div>
+      <div v-html="info.description"></div>
     </error-loading-view>
   </div>
 </template>
 
 <script setup lang="ts">
 const route = useRoute()
+const contest = useContest()
+const info = computed(() => contest.value.info)
+fetchContest(+route.params.id, true).then(() => {})
 
-const {data: contest, pending, error, refresh} = useAsyncData(
-  () => $get<any>(`/contests/${route.params.id}`),
-  {lazy: true}
-)
+const registerOrCancel = (register: () => Promise<void>, cancel: () => Promise<void>) => {
+  if (!info.value.isRegistered) {
+    register()
+    .then(() => info.value.isRegistered = false)
+  } else {
+    cancel()
+    .then(() => info.value.isRegistered = true)
+  }
+}
 
 </script>
