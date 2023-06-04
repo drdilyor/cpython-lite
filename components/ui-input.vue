@@ -22,7 +22,7 @@
 defineProps({
   id: { type: String, required: true },
   is: { type: String, default: 'input', },
-  type: { type: String, default: 'text' },
+  type: { type: String, required: false },
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
   breakpoint: { type: String as PropType<'sm' | 'md' | 'lg' | '-'>, default: 'sm' },

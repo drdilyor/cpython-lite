@@ -58,10 +58,12 @@
                 {{ difficultyTitle[problem.difficulty] }}
               </span>
             </td>
-            <td class="p-2 hidden sm:flex items-center space-x-1">
-              <span>{{ problem.likesCount }}</span>
-              <ui-icon name="thumbsUpDown" small></ui-icon>
-              <span>{{ problem.dislikesCount }}</span>
+            <td class="p-2 hidden sm:table-cell">
+              <div class="flex space-x-1">
+                <span>{{ problem.likesCount }}</span>
+                <ui-icon name="thumbsUpDown" small></ui-icon>
+                <span>{{ problem.dislikesCount }}</span>
+              </div>
             </td>
             <td class="p-2 hidden sm:table-cell">{{ problem.attemptsCount }}/{{ problem.solved }}</td>
           </tr>
@@ -104,34 +106,13 @@ const { data: problems, error, pending, refresh } = useAsyncData(
 watch([filterTitle, filterDifficulty, filterSolvedStatus], () => curPage.value = 1)
 
 const difficulties = [
-  {
-    "value": 1,
-    "name": "Beginner"
-  },
-  {
-    "value": 2,
-    "name": "Basic"
-  },
-  {
-    "value": 3,
-    "name": "Normal"
-  },
-  {
-    "value": 4,
-    "name": "Medium"
-  },
-  {
-    "value": 5,
-    "name": "Advanced"
-  },
-  {
-    "value": 6,
-    "name": "Hard"
-  },
-  {
-    "value": 7,
-    "name": "Extremal"
-  }
+  { "value": 1, "name": "Beginner" },
+  { "value": 2, "name": "Basic" },
+  { "value": 3, "name": "Normal" },
+  { "value": 4, "name": "Medium" },
+  { "value": 5, "name": "Advanced" },
+  { "value": 6, "name": "Hard" },
+  { "value": 7, "name": "Extremal" },
 ]
 
 const difficultyTitle = Object.fromEntries(difficulties.map(({ value, name }) => [value, name]))

@@ -12,7 +12,11 @@ export const langName: {[k:string]: string} = {
   c: 'C',
   php: 'PHP',
   cs: 'C#',
-  js: 'JavaScript'
+  js: 'JavaScript',
+  text: 'Text',
+  sql: 'SQL',
+  bash: 'Bash',
+  html: 'HTML',
 }
 
 export default defineNuxtComponent({
