@@ -1,9 +1,7 @@
 <template>
-  <span class="inline-flex items-center">
-    <svg :style="{width:size + 'px',height:size + 'px'}" viewBox="0 0 24 24">
-      <path fill="currentColor" :d="icons[normalizedName]"></path>
-    </svg>
-  </span>
+  <svg :style="{width:size + 'px',height:size + 'px'}" viewBox="0 0 24 24">
+    <path fill="currentColor" :d="icons[normalizedName]"></path>
+  </svg>
 </template>
 
 <script setup lang="ts">

@@ -31,44 +31,48 @@
       </div>
     </div>
     <error-loading-view v-bind="{ pending, error, refresh }">
-      <table class="w-full" v-if="problems.total">
-        <thead class="bg-primary-600 text-white">
-          <td class="p-2">ID</td>
-          <td class="p-2">Name</td>
-          <td class="p-2 hidden lg:table-cell">Tags</td>
-          <td class="p-2">Difficulty</td>
-          <td class="p-2 hidden sm:table-cell">Rating</td>
-          <td class="p-2 hidden sm:table-cell">Attempts</td>
-        </thead>
-        <tbody>
-          <tr v-for="problem in problems.data" class="hover:bg-gray-100"
-            :class="[problem.hasSolved ? 'bg-green-100' : problem.hasAttempted ? 'bg-red-100' : '']">
-            <td class="p-2">{{ problem.id }}</td>
-            <td class="p-2">
-              <nuxt-link :to="`/problems/${problem.id}`">{{ problem.title }}</nuxt-link>
-            </td>
-            <td class="p-2 hidden lg:table-cell">
-              <span v-for="tag in problem.tags" :key="tag.id"
-                class="border-2 rounded border-slate-500 py-1 px-2 mr-1 bg-slate-100">
-                {{ tag.name }}
-              </span>
-            </td>
-            <td class="p-2">
-              <span class="py-1 px-2 rounded border-2 inline-block" :class="difficultyClass[problem.difficulty]">
-                {{ difficultyTitle[problem.difficulty] }}
-              </span>
-            </td>
-            <td class="p-2 hidden sm:table-cell">
-              <div class="flex space-x-1">
-                <span>{{ problem.likesCount }}</span>
-                <ui-icon name="thumbsUpDown" small></ui-icon>
-                <span>{{ problem.dislikesCount }}</span>
-              </div>
-            </td>
-            <td class="p-2 hidden sm:table-cell">{{ problem.attemptsCount }}/{{ problem.solved }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <ui-table v-if="problems.total" v-slot="{table, thead, th, tr, td}">
+        <table :class="table">
+          <thead :class="thead">
+            <tr>
+              <th :class="th" class="w-16">ID</th>
+              <th :class="th">Name</th>
+              <th :class="th" class="hidden lg:table-cell">Tags</th>
+              <th :class="th" class="w-28">Difficulty</th>
+              <th :class="th" class="w-24 hidden sm:table-cell">Rating</th>
+              <th :class="th" class="w-24 hidden sm:table-cell">Attempts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="problem in problems.data"
+              :class="[tr, problem.hasSolved ? 'bg-green-100' : problem.hasAttempted ? 'bg-red-100' : '']">
+              <td :class="td">{{ problem.id }}</td>
+              <td :class="td">
+                <nuxt-link :to="`/problems/${problem.id}`">{{ problem.title }}</nuxt-link>
+              </td>
+              <td :class="td" class="hidden lg:table-cell">
+                <span v-for="tag in problem.tags" :key="tag.id"
+                  class="inline-block border-2 rounded border-slate-500 py-1 px-2 mr-1 bg-slate-100">
+                  {{ tag.name }}
+                </span>
+              </td>
+              <td :class="td">
+                <span class="py-1 px-2 rounded border-2 inline-block" :class="difficultyClass[problem.difficulty]">
+                  {{ difficultyTitle[problem.difficulty] }}
+                </span>
+              </td>
+              <td :class="td" class="hidden sm:table-cell">
+                <div class="flex items-center space-x-1">
+                  <span>{{ problem.likesCount }}</span>
+                  <ui-icon name="thumbsUpDown" small></ui-icon>
+                  <span>{{ problem.dislikesCount }}</span>
+                </div>
+              </td>
+              <td :class="td" class="hidden sm:table-cell">{{ problem.attemptsCount }}/{{ problem.solved }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ui-table>
       <p v-else class="p-2">No problems found.</p>
     </error-loading-view>
   </div>

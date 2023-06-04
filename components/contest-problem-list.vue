@@ -1,27 +1,31 @@
 <template>
-  <table class="w-full">
-    <thead class="bg-primary-600 text-white">
-      <td class="p-2"></td>
-      <td class="p-2">Problem</td>
-      <td class="p-2"></td>
-      <td v-if="!short" class="p-2"></td>
-    </thead>
-    <tbody>
-      <tr v-for="problem in contest.problems">
-        <td class="p-2">{{ problem.symbol }}</td>
-        <td class="p-2">
-          <nuxt-link :to="url(problem)">{{ problem.problem.title }}</nuxt-link>
-        </td>
-        <td class="p-2">
-          <span class="flex">
-            <ui-icon name="accountCheck"></ui-icon>
-            {{ problem.solved }}
-          </span>
-        </td>
-        <td v-if="!short"><ui-button light :url="url(problem)">Open</ui-button></td>
-      </tr>
-    </tbody>
-  </table>
+  <ui-table v-slot="{table, thead, th, tr, td}">
+    <table :class="table">
+      <thead :class="thead">
+        <tr>
+          <th :class="th" class="w-12"></th>
+          <th :class="th" class="">Problem</th>
+          <th :class="th" class="w-16"></th>
+          <th v-if="!short" :class="th" class="w-24"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="problem in contest.problems">
+          <td :class="td">{{ problem.symbol }}</td>
+          <td :class="td">
+            <nuxt-link :to="url(problem)">{{ problem.problem.title }}</nuxt-link>
+          </td>
+          <td :class="td">
+            <span class="flex">
+              <ui-icon name="accountCheck"></ui-icon>
+              {{ problem.solved }}
+            </span>
+          </td>
+          <td v-if="!short" :class="td"><ui-button light :url="url(problem)">Open</ui-button></td>
+        </tr>
+      </tbody>
+    </table>
+  </ui-table>
 </template>
 
 <script setup lang="ts">
