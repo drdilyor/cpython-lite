@@ -2,7 +2,8 @@
   <label :for="id" :class="
     breakpoint == 'sm' ? 'sm:text-right sm:py-1 sm:pr-2' :
     breakpoint == 'md' ? 'md:text-right md:py-1 md:pr-2' :
-    breakpoint == 'lg' ? 'lg:text-right lg:py-1 lg:pr-2' : ''">
+    breakpoint == 'lg' ? 'lg:text-right lg:py-1 lg:pr-2' : ''"
+    v-bind="labelAttrs">
     <slot name="label"></slot>
   </label>
   <div>
@@ -28,6 +29,7 @@ defineProps({
   breakpoint: { type: String as PropType<'sm' | 'md' | 'lg' | '-'>, default: 'sm' },
   required: { type: Boolean, default: false },
   controlAttrs: { type: Object, default: () => {} }, 
+  labelAttrs: { type: Object, default: () => {} },
   modelValue: { required: true },
   lazy: { type: Boolean, default: false },
 })

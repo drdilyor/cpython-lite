@@ -1,5 +1,5 @@
 <template>
-  <form v-if="user.user" class="grid gap-y-2" style="grid-template-columns: auto 1fr" @submit.prevent="submit">
+  <form v-if="user.user" class="flex flex-col sm:grid gap-y-2" style="grid-template-columns: auto 1fr" @submit.prevent="submit">
     <ui-input is="select" id="language" v-model="language" required>
       <template #label>Language</template>
       <template #control-inner>
