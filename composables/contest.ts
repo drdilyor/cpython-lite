@@ -27,7 +27,7 @@ export const fetchContest = async (id: number, force: boolean = false) => {
     contest.info = data[0]
     contest.problems = data[1]
     contest.type.has_penalty = ['ACM20M', 'ACM2H'].includes(contest.info.type)
-    contest.type.has_score = ['BALL525', 'BALL550', 'LessCode', 'LessLine'].includes(contest.info.type)
+    contest.type.has_score = ['Ball525', 'Ball550', 'LessCode', 'LessLine'].includes(contest.info.type)
   } catch (e: any) {
     contest.error = e
   } finally {
