@@ -18,7 +18,7 @@ const classes = computed(() => {
   if (+props.light + +props.outline >= 2) console.error('ui-button: only at most one of button style can be provided')
   let res = 'inline-flex items-center px-4 py-1 rounded border-2 '
   if (props.outline) {
-    res += (!props.secondary ? 'border-primary-600 hover:bg-primary-100' : 'border-secondary-600 hover:bg-secondary-100') + ' '
+    res += 'disabled:bg-white ' + (!props.secondary ? 'border-primary-600 hover:bg-primary-100' : 'border-secondary-600 hover:bg-secondary-100') + ' '
   }
   else if (props.light) {
     res += 'border-transparent hover:bg-gray-200 active:bg-gray-300 ' + (!props.secondary ? 'text-primary-700' : 'text-secondary-700') + ' '

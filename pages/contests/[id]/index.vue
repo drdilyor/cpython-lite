@@ -20,7 +20,7 @@
       <div v-if="info.status < 1" class="mt-2">
         <contest-registration>
           <template #default="{register, cancel, error, pending}">
-            <ui-button @click="registerOrCancel(register, cancel)" :disabled="pending" :outline="info.isRegistered">
+            <ui-button class="mt-4" :disabled="pending" :outline="info.isRegistered" @click="registerOrCancel(register, cancel)">
               {{ info.isRegistered ? 'Registered' : 'Register' }}
             </ui-button>
             <ui-error v-if="error" :error="error" :refresh="() => registerOrCancel(register, cancel)"></ui-error>

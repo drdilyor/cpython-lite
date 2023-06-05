@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="`/users/${user.username}`" :class="limitWidth && 'inline-block text-ellipsis overflow-hidden'">
+  <nuxt-link :to="`/users/${user.username}`" :class="limitWidth && 'block text-ellipsis overflow-hidden'">
   {{ user.username }}</nuxt-link>
 </template>
 

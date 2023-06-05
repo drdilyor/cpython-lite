@@ -18,13 +18,22 @@
               <tr v-for="user in standings" :class="tr">
                 <td :class="td" class="text-right">{{ user.rank }}</td>
                 <td :class="td"><ui-user :user="user" class="w-44" limit-width></ui-user></td>
-                <td :class="td" class="font-bold text-center text-primary-700">{{ user.points }}</td>
+                <td :class="td" class="text-center">
+                  <span class="font-bold text-primary-700">{{ user.points }}</span>
+                  <span v-if="contest.type.has_penalty" class="text-red-700">({{ user.penalties }})</span>
+                </td>
                 <td v-for="problem in problemInfos(user)" :class="td" class="text-center">
                   <template v-if="problem">
-                    <span v-if="problem.points" class="font-bold text-green-700">{{ problem.points }}</span>
-                    <span v-if="problem.attemptsCount" class="text-red-700">({{ problem.attemptsCount }})</span>
+                    <template v-if="contest.type.has_score">
+                      <span class="font-bold text-green-700">{{ problem.points }}</span>
+                      <span v-if="problem.attemptsCount" class="text-red-700">({{ problem.attemptsCount }})</span>
+                    </template>
+                    <span v-else class="font-bold" :class="problem.firstAcceptedTime ? 'text-green-700' : 'text-red-700'">
+                      {{ (problem.firstAcceptedTime ? '+' : '-')
+                       + (problem.attemptsCount || '') }}
+                    </span>
                     <br>
-                    <span v-if="problem.points" class="text-sm text-gray-700">
+                    <span v-if="problem.firstAcceptedTime" class="text-sm text-gray-700">
                       <ui-time :value="+new Date(problem.firstAcceptedTime) - +new Date(contest.info.startTime)" time utc></ui-time>
                     </span>
                   </template>

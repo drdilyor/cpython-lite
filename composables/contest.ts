@@ -1,15 +1,16 @@
-import ContestList from "~/components/contest-list.vue"
-
 export const useContest = () => useState('contest', () => ({
   pending: false as boolean,
   error: null as Error | null,
   info: null as any | null, // any's will be replaced in the *future*
   problems: null as any | null,
+  type: {
+    has_penalty: false,
+    has_score: false,
+  },
 }))
 
 export const fetchContest = async (id: number, force: boolean = false) => {
   const contest = useContest().value
-  console.log("fetchContest(" + id+ ", " + force + ")")
   if (contest.info && id == contest.info.id && !force) {
     return
   }
@@ -25,6 +26,8 @@ export const fetchContest = async (id: number, force: boolean = false) => {
     ])
     contest.info = data[0]
     contest.problems = data[1]
+    contest.type.has_penalty = ['ACM20M', 'ACM2H'].includes(contest.info.type)
+    contest.type.has_score = ['BALL525', 'BALL550', 'LessCode', 'LessLine'].includes(contest.info.type)
   } catch (e: any) {
     contest.error = e
   } finally {
