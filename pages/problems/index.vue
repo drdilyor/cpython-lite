@@ -103,6 +103,7 @@ const filterSolvedStatus = ref('' as '' | 'solved' | 'unsolved' | 'unattempted')
 const showAllTags = ref(false)
 
 const { data: problems, error, pending, refresh } = useAsyncData(
+  `/problems`,
   () => $get<any>('/problems', {
     query: {
       ordering: 'id',

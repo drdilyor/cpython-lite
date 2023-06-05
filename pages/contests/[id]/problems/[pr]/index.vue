@@ -21,8 +21,9 @@ const problemId = computed(() => route.params.pr)
 fetchContest(contestId.value).then(() => {})
 
 const {data: problem, pending, error, refresh} = useAsyncData(
-    () => $get<any>(`/contests/${contestId.value}/problem?symbol=${problemId.value}`),
-    { lazy: true },
+  `/contests/${contestId.value}/problem?symbol=${problemId.value}`,
+  () => $get<any>(`/contests/${contestId.value}/problem?symbol=${problemId.value}`),
+  { lazy: true },
 )
 
 

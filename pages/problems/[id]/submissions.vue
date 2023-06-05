@@ -25,6 +25,7 @@ const route = useRoute()
 const page = ref(1)
 
 const {data: submissions, pending, error, refresh} = useAsyncData(
+  `/attempts?problem_id=${+route.params.id}`,
   () => $get<any>(`/attempts`, {
     query: {
       problem_id: route.params.id,
@@ -39,7 +40,8 @@ const {data: submissions, pending, error, refresh} = useAsyncData(
 )
 
 const {data: problem, pending: problemPending, error: problemError, refresh: problemRefresh} = useAsyncData(
-  () => $get<any>(`/problems/${route.params.id}`),
+  `/problems/${+route.params.id}`,
+  () => $get<any>(`/problems/${+route.params.id}`),
   {lazy: true},
 )
 

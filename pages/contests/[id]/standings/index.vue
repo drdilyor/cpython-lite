@@ -57,6 +57,7 @@ const contest = useContest()
 fetchContest(+route.params.id)
 
 const {data: standings, pending, error, refresh} = useAsyncData(
+  `/contests/${+route.params.id}/contestants`,
   () => $get<any>(`/contests/${+route.params.id}/contestants`),
   {lazy: true},
 )

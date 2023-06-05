@@ -30,15 +30,18 @@
 <script setup lang="ts">
 
 const { data: upcoming, pending: upcomingPending, error: upcomingError, refresh: upcomingRefresh } = useAsyncData(
+  `/contests?status=-1`,
   () => $get<any>(`/contests?status=-1&page_size=50`),
   { lazy: true },
 )
 const { data: running, pending: runningPending, error: runningError, refresh: runningRefresh } = useAsyncData(
+  `/contests?status=0`,
   () => $get<any>(`/contests?status=0&page_size=50`),
   { lazy: true },
 )
 
 const { data: past, pending, error, refresh } = useAsyncData(
+  `/contests?status=1`,
   () => $get<any>(`/contests?status=1&page_size=20`),
   { lazy: true },
 )
