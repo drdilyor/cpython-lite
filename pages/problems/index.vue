@@ -6,17 +6,17 @@
     <div v-if="problems" > <!-- class=""> -->
       <ui-expand-panel v-if="problems" class="bg-gray-100" header="Filters" hide-header>
         <div class="flex flex-col md:flex-row items-left md:items-center md:space-y-0 md:space-x-2">
-          <ui-input id="title" breakpoint="md" v-model="filterTitle" lazy :control-attrs="{class: 'mb-2 mt-1'}">
+          <ui-input id="title" breakpoint="md" v-model="filterTitle" lazy :control-attrs="{class: 'mb-2 mt-1 md:my-0'}">
             <template #label>Title</template>
           </ui-input>
-          <ui-input id="title" is="select" breakpoint="-" v-model="filterDifficulty" :control-attrs="{class: 'mb-2 mt-1'}">
+          <ui-input id="title" is="select" breakpoint="-" v-model="filterDifficulty" :control-attrs="{class: 'mb-2 mt-1 md:my-0'}">
             <template #label>Difficulty</template>
             <template #control-inner>
               <option value="">All</option>
               <option v-for="difficulty in difficulties" :value="difficulty.value">{{ difficulty.name }}</option>
             </template>
           </ui-input>
-          <ui-input id="status" is="select" breakpoint="-" v-model="filterSolvedStatus" :control-attrs="{class: 'mb-2 mt-1'}">
+          <ui-input id="status" is="select" breakpoint="-" v-model="filterSolvedStatus" :control-attrs="{class: 'mb-2 mt-1 md:my-0'}">
             <template #label>Status</template>
             <template #control-inner>
               <option value="">All</option>
@@ -26,8 +26,8 @@
             </template>
           </ui-input>
         </div>
-        <div>
-          <input id="show-tags" type="checkbox" class="mr-2" v-model="showAllTags">
+        <div class="flex items-center">
+          <ui-checkbox id="show-tags" class="mr-2" v-model="showAllTags"></ui-checkbox>
           <label for="show-tags">Show all tags</label>
         </div>
       </ui-expand-panel>
