@@ -1,5 +1,5 @@
 <template>
-  <svg :style="{width:size + 'px',height:size + 'px'}" viewBox="0 0 24 24">
+  <svg class="opacity-75" :style="{width:size + 'px',height:size + 'px'}" viewBox="0 0 24 24">
     <path fill="currentColor" :d="icons[normalizedName]"></path>
   </svg>
 </template>
@@ -12,6 +12,10 @@ import {
   mdiAccountCheck,
   mdiChevronDown,
   mdiLightbulb,
+  mdiInformation,
+  mdiCalendar,
+  mdiCalendarStar,
+  mdiMapMarker,
 } from '@mdi/js'
 
 const icons: { [k: string]: string } = {
@@ -21,6 +25,10 @@ const icons: { [k: string]: string } = {
   mdiAccountCheck,
   mdiChevronDown,
   mdiLightbulb,
+  mdiInformation,
+  mdiCalendar,
+  mdiCalendarStar,
+  mdiMapMarker,
 }
 
 const props = defineProps({
