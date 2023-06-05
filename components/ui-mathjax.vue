@@ -1,20 +1,15 @@
 <template>
-  <div ref="root" v-html="props.body"></div>
+  <div ref="root" v-html="body"></div>
 </template>
 
-<script setup lang="ts">
-const props = defineProps({
-  body: {type: String, required: true},
-})
-
-const root = ref(null as null | HTMLElement)
-const mathjax = ref(null as null | any)
+<script lang="ts">
+let mathjax = null as any
 
 const loadMathConfig = () => {
-  if (mathjax.value !== null)
+  if (mathjax !== null)
     return
-  mathjax.value = (window as any).MathJax;
-  mathjax.value.Hub.Config({
+  mathjax = (window as any).MathJax;
+  mathjax.Hub.Config({
     showMathMenu: false,
     tex2jax: {
       inlineMath: [
@@ -27,22 +22,31 @@ const loadMathConfig = () => {
     "HTML-CSS": { linebreaks: { automatic: true } },
     SVG: { linebreaks: { automatic: true } }
   });
-  mathjax.value.Hub.Configured();
+  mathjax.Hub.Configured();
 }
 
-loadMathConfig()
+export default defineNuxtComponent({
+  props: {
+    body: {type: String, required: true},
+  },
+  setup() {
+    const root = ref(null as null | HTMLElement)
 
-const renderMath = () => {
-  mathjax.value.Hub.Queue([
-    "Typeset",
-    mathjax.value.Hub,
-    root.value,
-  ])
-}
+    loadMathConfig()
 
-onMounted(() => {
-  renderMath()
+    const renderMath = () => {
+      mathjax.Hub.Queue([
+        "Typeset",
+        mathjax.Hub,
+        root.value!,
+      ])
+    }
+
+    onMounted(() => {
+      renderMath()
+    })
+    return {root}
+  }
 })
 
-watch(props, renderMath)
 </script>

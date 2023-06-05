@@ -2,7 +2,11 @@
   <div class="p-4">
     <contest-tabs :id="contestId"></contest-tabs>
     <error-loading-view :pending="contest.pending || pending" :error="contest.error || error">
-      <problem-statement :problem="problem.problem" :symbol="problem.symbol" upsolve></problem-statement>
+      <problem-statement
+        :problem="problem.problem"
+        :symbol="problem.symbol"
+        :upsolve-url="contest.info.status == 1 ? `/problems/${problem.problem.id}?contestId=${contest.info.id}` : undefined">
+      </problem-statement>
     </error-loading-view>
   </div>
 </template>

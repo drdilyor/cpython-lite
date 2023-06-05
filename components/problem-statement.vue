@@ -1,7 +1,7 @@
 <template>
   <h1 class="text-4xl my-4 flex items-center">
     {{ symbol || problem.id }}. {{ problem.title }}
-    <ui-button v-if="upsolve" class="ml-2 text-base" :url="`/problems/${problem.id}`">Upsolve</ui-button>
+    <ui-button v-if="upsolveUrl" class="ml-2 text-base" :url="upsolveUrl">Upsolve</ui-button>
   </h1>
   <ui-mathjax :body="problem.body"></ui-mathjax>
 
@@ -29,7 +29,7 @@
 const props = defineProps({
   problem: { type: Object, required: true },
   symbol: { type: String, required: false },
-  upsolve: { type: Boolean, deafult: false },
+  upsolveUrl: { type: String, required: false },
 })
 
 </script>

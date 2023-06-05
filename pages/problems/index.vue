@@ -96,8 +96,6 @@
 </template>
 
 <script setup lang="ts">
-const user = useUser()
-
 const curPage = ref(1)
 const filterTitle = ref('')
 const filterDifficulty = ref('')

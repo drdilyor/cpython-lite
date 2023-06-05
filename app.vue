@@ -1,6 +1,6 @@
 <template>
   <nuxt-layout>
-    <nuxt-page></nuxt-page>
+    <nuxt-page :keepalive="{max: 5}"></nuxt-page>
   </nuxt-layout>
 </template>
 

@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="problem in contest.problems">
+        <tr v-for="problem in contest.problems" :class="tr">
           <td :class="td">{{ problem.symbol }}</td>
           <td :class="td" class="link">
             <nuxt-link :to="url(problem)">{{ problem.problem.title }}</nuxt-link>
@@ -33,10 +33,14 @@
 const props = defineProps({
   contestId: { type: Number, required: true },
   short: { type: Boolean, default: false },
+  upsolve: { type: Boolean, default: false },
 })
 
 const contest = useContest()
 
-const url = (problem: any) => `/contests/${props.contestId}/problems/${problem.symbol}`
+const url = (problem: any) => !props.upsolve ?
+  `/contests/${props.contestId}/problems/${problem.symbol}` :
+  `/problems/${problem.problem.id}?contestId=${props.contestId}`
+
 
 </script>
