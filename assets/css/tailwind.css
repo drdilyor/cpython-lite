@@ -4,6 +4,7 @@
 
 /* global styles */
 .link {
+  @apply cursor-pointer;
   @apply hover:underline;
   @apply hover:text-primary-700;
 }

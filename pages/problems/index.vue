@@ -26,6 +26,10 @@
             </template>
           </ui-input>
         </div>
+        <div>
+          <input id="show-tags" type="checkbox" class="mr-2" v-model="showAllTags">
+          <label for="show-tags">Show all tags</label>
+        </div>
       </ui-expand-panel>
     </div>
     <error-loading-view v-bind="{ pending, error, refresh }">
@@ -49,10 +53,25 @@
                 <nuxt-link :to="`/problems/${problem.id}`" class="link">{{ problem.title }}</nuxt-link>
               </td>
               <td :class="td" class="hidden lg:table-cell">
-                <span v-for="tag in problem.tags" :key="tag.id"
-                  class="inline-block border-2 rounded border-slate-500 py-1 px-2 mr-1 bg-slate-100">
-                  {{ tag.name }}
-                </span>
+                <template v-if="showAllTags">
+                  <span v-for="tag in problem.tags" :key="tag.id"
+                    class="inline-block border-2 rounded border-slate-500 py-1 px-2 mr-1 bg-slate-100">
+                    {{ tag.name }}
+                  </span>
+                </template>
+                <ui-expandable v-else-if="problem.tags.length">
+                  <template #activator="{toggle, expanded}">
+                    <span v-if="!expanded" class="link" @click="toggle">Show tags</span>
+                  </template>
+                  <template #default="{show}">
+                    <template v-if="show">
+                      <span v-for="tag in problem.tags" :key="tag.id"
+                        class="inline-block border-2 rounded border-slate-500 py-1 px-2 mr-1 bg-slate-100">
+                        {{ tag.name }}
+                      </span>
+                    </template>
+                  </template>
+                </ui-expandable>
               </td>
               <td :class="td">
                 <span class="py-1 px-2 rounded border-2 inline-block" :class="difficultyClass[problem.difficulty]">
@@ -83,6 +102,7 @@ const curPage = ref(1)
 const filterTitle = ref('')
 const filterDifficulty = ref('')
 const filterSolvedStatus = ref('' as '' | 'solved' | 'unsolved' | 'unattempted')
+const showAllTags = ref(false)
 
 const { data: problems, error, pending, refresh } = useAsyncData(
   () => $get<any>('/problems', {
