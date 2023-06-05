@@ -1,6 +1,6 @@
 <template>
   <ui-tooltip :label="submission.verdictTitle + ' #' + submission.testCaseNumber">
-    <span class="inline-block text-sm py-px px-1.5 rounded" :class="fmt.class">
+    <span class="inline-block text-sm py-px px-1.5 rounded" :class="fmt.class" @click="onclick">
       {{ fmt.text }}
     </span>
   </ui-tooltip>
@@ -91,6 +91,8 @@ const props = defineProps({
   submission: {type: Object, required: true},
 })
 
+const emit = defineEmits(['update'])
+
 const fmt = computed(() => {
   const verdict = props.submission.verdict
   if (verdict in format)
@@ -100,5 +102,9 @@ const fmt = computed(() => {
     }
   return {class: '', text: ''}
 })
+
+const onclick = () => {
+  if (props.submission.verdict < 0) emit('update')
+}
 
 </script>

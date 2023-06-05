@@ -23,7 +23,7 @@
           <td :class="td"><ui-time :value="submission.created" date time seconds></ui-time></td>
           <td :class="td"><ui-user :user="submission.user" limit-width class="w-44 lg:w-auto"></ui-user></td>
           <td :class="td"><ui-language :lang="submission.lang"></ui-language></td>
-          <td :class="td"><submission-verdict :submission="submission"></submission-verdict></td>
+          <td :class="td"><submission-verdict :submission="submission" @update="$emit('verdict-update', submission.id)"></submission-verdict></td>
           <td :class="td" class="text-right">{{ submission.time }}ms</td>
           <td :class="td" class="text-right">{{ submission.memory }}KB</td>
         </tr>
@@ -34,6 +34,10 @@
 <script setup lang="ts">
 defineProps({
   submissions: { type: Array<any>, required: true },
+})
+
+defineEmits({
+  'verdict-update': Number,
 })
 
 const user = useUser()

@@ -11,6 +11,7 @@ import {
   mdiThumbsUpDown,
   mdiAccountCheck,
   mdiChevronDown,
+  mdiLightbulb,
 } from '@mdi/js'
 
 const icons: { [k: string]: string } = {
@@ -19,6 +20,7 @@ const icons: { [k: string]: string } = {
   mdiThumbsUpDown,
   mdiAccountCheck,
   mdiChevronDown,
+  mdiLightbulb,
 }
 
 const props = defineProps({
