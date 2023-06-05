@@ -3,32 +3,26 @@
     <h1 class="text-4xl mb-4">Problems</h1>
     <ui-pagination v-if="problems" :cur-page="curPage" :total-pages="problems ? problems.pagesCount : 1"
       @set-page="page => curPage = page"></ui-pagination>
-    <div v-if="problems" class="flex items-center w-full px-4 py-2 bg-gray-100">
-      <div class="flex items-center space-x-2 mr-4">
-        <ui-input id="title" breakpoint="-" v-model="filterTitle" lazy>
-          <template #label>Title</template>
-        </ui-input>
-      </div>
-      <div class="flex items-center space-x-2 mr-4">
-        <ui-input id="title" is="select" breakpoint="-" v-model="filterDifficulty">
-          <template #label>Difficulty</template>
-          <template #control-inner>
-            <option value="">All</option>
-            <option v-for="difficulty in difficulties" :value="difficulty.value">{{ difficulty.name }}</option>
-          </template>
-        </ui-input>
-      </div>
-      <div class="flex items-center space-x-2 mr-4" v-if="user.user">
-        <ui-input id="status" is="select" breakpoint="-" v-model="filterSolvedStatus">
-          <template #label>Status</template>
-          <template #control-inner>
-            <option value="">All</option>
-            <option value="solved" class="text-green-700">Solved</option>
-            <option value="unsolved" class="text-red-700">Unsolved</option>
-            <option value="unattempted" class="">Unattempted</option>
-          </template>
-        </ui-input>
-      </div>
+    <div v-if="problems" class="flex flex-col md:flex-row items-left md:items-center md:space-y-0 md:space-x-2 w-full px-4 py-2 bg-gray-100">
+      <ui-input id="title" breakpoint="md" v-model="filterTitle" lazy :control-attrs="{class: 'mb-2 mt-1'}">
+        <template #label>Title</template>
+      </ui-input>
+      <ui-input id="title" is="select" breakpoint="-" v-model="filterDifficulty" :control-attrs="{class: 'mb-2 mt-1'}">
+        <template #label>Difficulty</template>
+        <template #control-inner>
+          <option value="">All</option>
+          <option v-for="difficulty in difficulties" :value="difficulty.value">{{ difficulty.name }}</option>
+        </template>
+      </ui-input>
+      <ui-input id="status" is="select" breakpoint="-" v-model="filterSolvedStatus" :control-attrs="{class: 'mb-2 mt-1'}">
+        <template #label>Status</template>
+        <template #control-inner>
+          <option value="">All</option>
+          <option value="solved" class="text-green-700">Solved</option>
+          <option value="unsolved" class="text-red-700">Unsolved</option>
+          <option value="unattempted" class="">Unattempted</option>
+        </template>
+      </ui-input>
     </div>
     <error-loading-view v-bind="{ pending, error, refresh }">
       <ui-table v-if="problems.total" v-slot="{table, thead, th, tr, td}">
