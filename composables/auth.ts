@@ -10,19 +10,19 @@ export const setToken = (token: string) => {
 const user = reactive({
   pending: false as boolean,
   error: null as any,
-  user: null as any,
+  user: JSON.parse(localStorage.getItem('authUser') || 'null'),
 })
 
 export const fetchUser = async () => {
   user.pending = true
   user.error = null
-  user.user = null
   const token = useToken()
   try {
     if (!token.value) return
     const data: any = await $get('/me')
     user.error = null
     user.user = data
+    localStorage.setItem('authUser', JSON.stringify(user.user))
   } catch (e: any) {
     if (e.statusCode && 400 <= e.statusCode && e.statusCode < 500) {
       token.value = null
@@ -30,6 +30,7 @@ export const fetchUser = async () => {
     }
     user.error = e
     user.user = null
+    localStorage.setItem('authUser', JSON.stringify(null))
   } finally {
     user.pending = false
   }
