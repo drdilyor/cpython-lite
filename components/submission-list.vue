@@ -15,7 +15,8 @@
       <tbody>
         <tr v-for="submission in submissions" :class="tr">
           <td :class="td">
-            <nuxt-link v-if="user.user.is_superuser || user.user.username == submission.user.username" :to="`/submissions/${submission.id}`">
+            <nuxt-link v-if="user.user.is_superuser || user.user.username == submission.user.username" :to="`/submissions/${submission.id}`"
+              class="link">
               {{ submission.id }}
             </nuxt-link>
             <template v-else>{{ submission.id }}</template>

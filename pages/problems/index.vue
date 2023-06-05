@@ -46,7 +46,7 @@
               :class="[tr, problem.hasSolved ? 'bg-green-100' : problem.hasAttempted ? 'bg-red-100' : '']">
               <td :class="td">{{ problem.id }}</td>
               <td :class="td">
-                <nuxt-link :to="`/problems/${problem.id}`">{{ problem.title }}</nuxt-link>
+                <nuxt-link :to="`/problems/${problem.id}`" class="link">{{ problem.title }}</nuxt-link>
               </td>
               <td :class="td" class="hidden lg:table-cell">
                 <span v-for="tag in problem.tags" :key="tag.id"

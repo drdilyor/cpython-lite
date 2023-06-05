@@ -12,7 +12,7 @@
       <tbody>
         <tr v-for="contest in contests" :class="tr">
           <td :class="td">
-            <nuxt-link :to="`/contests/${contest.id}`">{{ contest.title }}</nuxt-link>
+            <nuxt-link :to="`/contests/${contest.id}`" class="link">{{ contest.title }}</nuxt-link>
           </td>
           <td :class="td"><ui-time :value="contest.startTime" date time></ui-time></td>
           <td :class="td">

@@ -11,7 +11,10 @@
                 <th :class="th" class="w-14">Rank</th>
                 <th :class="th" class="w-48">User</th>
                 <th :class="th" class="w-16 text-center">Score</th>
-                <th :class="th" v-for="problem in contest.problems" class="w-14 text-center">{{ problem.symbol }}</th>
+                <th v-for="problem in contest.problems"
+                  :class="th" class="w-14 text-center cursor-pointer hover:bg-primary-700"
+                  @click="$router.push(`/contests/${+route.params.id}/problems/${problem.symbol}`)">
+                  {{ problem.symbol }}</th>
               </tr>
             </thead>
             <tbody>

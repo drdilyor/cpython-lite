@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* global styles */
+.link {
+  @apply hover:underline;
+  @apply hover:text-primary-700;
+}

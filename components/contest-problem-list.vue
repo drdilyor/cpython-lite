@@ -12,7 +12,7 @@
       <tbody>
         <tr v-for="problem in contest.problems">
           <td :class="td">{{ problem.symbol }}</td>
-          <td :class="td">
+          <td :class="td" class="link">
             <nuxt-link :to="url(problem)">{{ problem.problem.title }}</nuxt-link>
           </td>
           <td :class="td">
