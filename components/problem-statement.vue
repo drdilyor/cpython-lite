@@ -1,5 +1,8 @@
 <template>
-  <h1 class="text-4xl my-4">{{ symbol || problem.id }}. {{ problem.title }}</h1>
+  <h1 class="text-4xl my-4 flex items-center">
+    {{ symbol || problem.id }}. {{ problem.title }}
+    <ui-button v-if="upsolve" class="ml-2 text-base" :url="`/problems/${problem.id}`">Upsolve</ui-button>
+  </h1>
   <ui-mathjax :body="problem.body"></ui-mathjax>
 
   <hr v-if="problem.inputData || problem.outputData" class="mt-4">
@@ -25,7 +28,8 @@
 <script setup lang="ts">
 const props = defineProps({
   problem: { type: Object, required: true },
-  symbol: { type: String, requride: false },
+  symbol: { type: String, required: false },
+  upsolve: { type: Boolean, deafult: false },
 })
 
 </script>

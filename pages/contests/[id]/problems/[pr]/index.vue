@@ -2,7 +2,7 @@
   <div class="p-4">
     <contest-tabs :id="contestId"></contest-tabs>
     <error-loading-view :pending="contest.pending || pending" :error="contest.error || error">
-        <problem-statement :problem="problem.problem" :symbol="problem.symbol"></problem-statement>
+      <problem-statement :problem="problem.problem" :symbol="problem.symbol" upsolve></problem-statement>
     </error-loading-view>
   </div>
 </template>
