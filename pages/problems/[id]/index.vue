@@ -16,6 +16,22 @@
           <contest-problem-list v-if="contest" :contest-id="+route.query.contestId" short upsolve></contest-problem-list>
         </error-loading-view>
       </div>
+      <div>
+        <ui-list v-if="!pending && !error">
+          <ui-list-item>
+            <div class="flex flex-wrap gap-y-1 items-start">
+              <problem-difficulty :problem="problem" class="mr-1"></problem-difficulty>
+              <problem-tags :problem="problem"></problem-tags>
+            </div>
+          </ui-list-item>
+          <ui-list-item under="Solved / unsolved count">
+            {{ problem.solved }} / {{ problem.notSolved }}
+          </ui-list-item>
+          <ui-list-item under="Limits">
+            {{ problem.timeLimit }}ms / {{ problem.memoryLimit }}MB
+          </ui-list-item>
+        </ui-list>
+      </div>
     </div>
   </div>
 </template>

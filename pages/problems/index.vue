@@ -53,31 +53,17 @@
                 <nuxt-link :to="`/problems/${problem.id}`" class="link">{{ problem.title }}</nuxt-link>
               </td>
               <td :class="td" class="hidden lg:table-cell">
-                <template v-if="showAllTags">
-                  <span v-for="tag in problem.tags" :key="tag.id"
-                    class="inline-block border-2 rounded border-slate-500 py-1 px-2 mr-1 bg-slate-100">
-                    {{ tag.name }}
-                  </span>
-                </template>
+                <problem-tags v-if="showAllTags" :problem="problem"></problem-tags>
                 <ui-expandable v-else-if="problem.tags.length">
                   <template #activator="{toggle, expanded}">
                     <span v-if="!expanded" class="link" @click="toggle">Show tags</span>
                   </template>
                   <template #default="{show}">
-                    <template v-if="show">
-                      <span v-for="tag in problem.tags" :key="tag.id"
-                        class="inline-block border-2 rounded border-slate-500 py-1 px-2 mr-1 bg-slate-100">
-                        {{ tag.name }}
-                      </span>
-                    </template>
+                    <problem-tags v-if="show" :problem="problem"></problem-tags>
                   </template>
                 </ui-expandable>
               </td>
-              <td :class="td">
-                <span class="py-1 px-2 rounded border-2 inline-block" :class="difficultyClass[problem.difficulty]">
-                  {{ difficultyTitle[problem.difficulty] }}
-                </span>
-              </td>
+              <td :class="td"><problem-difficulty :problem="problem"></problem-difficulty></td>
               <td :class="td" class="hidden sm:table-cell">
                 <div class="flex items-center space-x-1">
                   <span>{{ problem.likesCount }}</span>
@@ -96,6 +82,8 @@
 </template>
 
 <script setup lang="ts">
+import { difficulties } from '~/components/problem-difficulty.vue';
+
 const curPage = ref(1)
 const filterTitle = ref('')
 const filterDifficulty = ref('')
@@ -125,26 +113,4 @@ const { data: problems, error, pending, refresh } = useAsyncData(
 )
 
 watch([filterTitle, filterDifficulty, filterSolvedStatus], () => curPage.value = 1)
-
-const difficulties = [
-  { "value": 1, "name": "Beginner" },
-  { "value": 2, "name": "Basic" },
-  { "value": 3, "name": "Normal" },
-  { "value": 4, "name": "Medium" },
-  { "value": 5, "name": "Advanced" },
-  { "value": 6, "name": "Hard" },
-  { "value": 7, "name": "Extremal" },
-]
-
-const difficultyTitle = Object.fromEntries(difficulties.map(({ value, name }) => [value, name]))
-
-const difficultyClass: { [k: string]: string } = {
-  1: 'bg-green-100 border-green-600',
-  2: 'bg-cyan-100 border-cyan-600',
-  3: 'bg-blue-100 border-blue-600',
-  4: 'bg-violet-200 border-violet-600',
-  5: 'bg-yellow-100 border-yellow-600',
-  6: 'bg-red-100 border-red-600',
-  7: 'bg-red-600 text-white border-black',
-}
 </script>
