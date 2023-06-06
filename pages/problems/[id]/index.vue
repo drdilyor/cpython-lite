@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:flex lg:flex-row-reverse">
+  <div class="lg:flex">
     <div class="p-4 flex-1">
       <problem-tabs :id="+route.params.id"></problem-tabs>
       <error-loading-view v-bind="{pending, error, refresh}">
@@ -10,10 +10,12 @@
           @submit="onSubmitted"></problem-submit>
       </error-loading-view>
     </div>
-    <div v-if="route.query.contestId" class="p-4 lg:pr-0 lg:w-1/3 lg:max-w-md">
-      <error-loading-view :pending="contest.pending" :error="contest.error" :refresh="refreshContest">
-        <contest-problem-list v-if="contest" :contest-id="+route.query.contestId" short upsolve></contest-problem-list>
-      </error-loading-view>
+    <div class="p-4 lg:pl-0 lg:w-1/3 lg:max-w-md">
+      <div v-if="route.query.contestId">
+        <error-loading-view :pending="contest.pending" :error="contest.error" :refresh="refreshContest">
+          <contest-problem-list v-if="contest" :contest-id="+route.query.contestId" short upsolve></contest-problem-list>
+        </error-loading-view>
+      </div>
     </div>
   </div>
 </template>
