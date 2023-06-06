@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user && !error" class="p-4">
+  <div v-if="user && !error" class="p-4 pt-0">
     <div>
       <div class="max-h-96 overflow-hidden -mx-4 transition-all" :class="!coverLoaded ? 'h-96' : ''">
         <img :src="user.coverPhoto" alt="User banner" @onload="coverLoaded = true">
@@ -41,4 +41,7 @@ const tabs = [
 ]
 
 const coverLoaded = ref(false)
+definePageMeta({
+  layout: 'transparent-navbar',
+})
 </script>
