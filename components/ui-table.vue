@@ -1,7 +1,7 @@
 <template>
   <slot
     table="w-full table-fixed"
-    thead="bg-primary-600 text-white"
+    :thead="!light ? 'bg-primary-600 text-white' : 'bg-gray-100'"
     th="p-2 font-normal text-left"
     tr="hover:bg-gray-100"
     td="p-2"
@@ -9,5 +9,7 @@
 </template>
 
 <script setup lang="ts">
-
+defineProps({
+  light: { type: Boolean, default: false },
+})
 </script>

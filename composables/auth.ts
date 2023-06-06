@@ -18,7 +18,11 @@ export const fetchUser = async () => {
   user.error = null
   const token = useToken()
   try {
-    if (!token.value) return
+    if (!token.value) {
+      user.user = null
+      localStorage.setItem('authUser', JSON.stringify(user.user))
+      return
+    }
     const data: any = await $get('/me')
     user.error = null
     user.user = data

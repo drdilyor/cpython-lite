@@ -27,8 +27,29 @@
           <ui-list-item under="Solved / unsolved count">
             {{ problem.solved }} / {{ problem.notSolved }}
           </ui-list-item>
-          <ui-list-item under="Limits">
-            {{ problem.timeLimit }}ms / {{ problem.memoryLimit }}MB
+          <ui-list-item under="Limits" v-if="problem.timeLimit && problem.memoryLimit">
+            {{ (problem.timeLimit/1000).toFixed(1) }} s / {{ problem.memoryLimit }} MB
+          </ui-list-item>
+          <ui-list-item v-if="problem.availableLanguages.reduce((count, x) => count + !!(x.timeLimit) + !!(x.memoryLimit), 0)">
+            <ui-table v-slot="{table, thead, th, tr, td}" light>
+              <table :class="table">
+                <thead :class="thead">
+                  <tr>
+                    <th :class="th" class="">Language</th>
+                    <th :class="th" class="w-32">Specific limits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template v-for="language in problem.availableLanguages" >
+                    <tr v-if="language.timeLimit || language.memoryLimit" :class="tr">
+                      <td :class="td"><ui-language :lang="language.lang"></ui-language></td>
+                      <td :class="td">
+                        {{ language.timeLimit ? (language.timeLimit/1000).toFixed(1) : '-' }} s / {{ language.memoryLimit || '-' }} MB</td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </ui-table>
           </ui-list-item>
         </ui-list>
       </div>
