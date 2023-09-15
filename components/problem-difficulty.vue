@@ -17,7 +17,7 @@ export const difficulties = [
 
 const difficultyTitle = Object.fromEntries(difficulties.map(({ value, name }) => [value, name]))
 
-const difficultyClass: { [k: string]: string } = {
+export const difficultyClass: { [k: string]: string } = {
   1: 'bg-green-100 border-green-600',
   2: 'bg-cyan-100 border-cyan-600',
   3: 'bg-blue-100 border-blue-600',

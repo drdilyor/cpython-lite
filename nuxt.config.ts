@@ -15,5 +15,9 @@ export default defineNuxtConfig({
         },
       ],
     },
-  }
+  },
+  tailwindcss: {
+    exposeConfig: true,
+    // exposeLevel: 1,  // determines tree-shaking (optional)
+  },
 })
