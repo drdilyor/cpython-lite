@@ -13,7 +13,7 @@
     <h2 class="text-2xl mt-4 mb-2">Upcoming</h2>
 
     <error-loading-view :pending="upcomingPending" :error="upcomingError" :refresh="upcomingRefresh">
-      <contest-list v-if="upcoming.total" :contests="upcoming" status="upcoming"></contest-list>
+      <contest-list v-if="upcoming.total" :contests="upcoming.data" status="upcoming"></contest-list>
       <p v-else>No upcoming contests.</p>
     </error-loading-view>
 
