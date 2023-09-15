@@ -27,6 +27,7 @@
       </div>
       <template v-if="user.user">
         <div class="absolute invisible right-0 min-w-full group-hover:visible flex flex-col items-stretch bg-white text-black shadow-md">
+          <nuxt-link class="px-2 py-2 hover:bg-gray-200 cursor-pointer" :to="`/users/${user.user.username}`">Profile</nuxt-link>
           <div class="px-2 py-2 hover:bg-gray-200 cursor-pointer" @click="logoutUser">Logout</div>
         </div>
       </template>
