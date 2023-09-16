@@ -7,7 +7,7 @@ Chart.register(Title, PointElement, Legend, Tooltip, LineElement, CategoryScale,
 
 Chart.defaults.interaction.intersect = false
 
-Chart.defaults.elements.point.radius = 8
+Chart.defaults.elements.point.radius = 5
 Chart.defaults.elements.point.backgroundColor = theme.colors.primary[600]
 Chart.defaults.elements.point.hoverRadius = 10
 Chart.defaults.elements.point.hoverBackgroundColor = theme.colors.primary[600]

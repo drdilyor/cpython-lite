@@ -28,38 +28,44 @@
           </ui-list-item>
         </ui-list>
       </div>
-      <div class="lg:w-2/3 mt-4 lg:mt-0 border rounded px-2 py-4">
-        <div class="text-2xl mb-2 text-center">Problems</div>
-        <div class="text-center mb-2 text-xl">Rating: {{ problems.rating }}</div>
-        <div class="text-center mb-2 text-xl">Total: {{ problems.solved }}</div>
-        <div class="lg:flex flex-wrap justify-center mt-4">
-          <div class="flex mb-2 items-center justify-center mr-2" v-for="diff in difficulties">
-            <div class="py-1 px-2 mr-1 rounded border-2 inline-block" :class="difficultyClass[diff.value]">{{ diff.name }}</div>
-            x{{ (problems as any)[diff.name.toLowerCase()] }}
+
+      <div class="lg:w-2/3">
+        <div class="mt-4 lg:mt-0 border rounded px-2 py-4">
+          <div class="text-2xl mb-2 text-center">Problems</div>
+          <div class="text-center mb-2 text-xl">Rating: {{ problems.rating }}</div>
+          <div class="text-center mb-2 text-xl">Total: {{ problems.solved }}</div>
+          <div class="lg:flex flex-wrap justify-center mt-4">
+            <div class="flex mb-2 items-center justify-center mr-2" v-for="diff in difficulties">
+              <div class="py-1 px-2 mr-1 rounded border-2 inline-block" :class="difficultyClass[diff.value]">{{ diff.name }}</div>
+              x{{ (problems as any)[diff.name.toLowerCase()] }}
+            </div>
           </div>
-        </div>
-        <div class="text-2xl text-center mt-4 mb-2">Activity (last week)</div>
-        <div class="text-center mb-2 text-xl">Total: {{ activity.solved }}</div>
-        <div>
-          <Line
-            id="user-problems-activity"
-            :data="activityChart"
-            :options="{
-              responsive: true,
-              scales: {
-                x: {
-                  display: false,
+          <div class="text-2xl text-center mt-2 mb-2">Activity for a month</div>
+          <div class="text-center mb-2 text-xl">Total: {{ activity.solved }}</div>
+
+          <div>
+            <Line
+              id="user-problems-activity"
+              :data="activityChart"
+              :options="{
+                responsive: true,
+                scales: {
+                  x: {
+                    display: false,
+                  },
+                  y: {
+                    beginAtZero: true,
+                    ticks: {
+                      precision: 0,
+                    },
+                  },
                 },
-                y: {
-                  display: false,
-                  beginAtZero: true,
-                }
-              },
-              plugins: {
-                legend: { display: false },
-              },
-            }"
-          ></Line>
+                plugins: {
+                  legend: { display: false },
+                },
+              }"
+            ></Line>
+          </div>
         </div>
       </div>
     </div>
@@ -88,7 +94,7 @@ const {data, pending, error, refresh} = useAsyncData(
     $get<any>(`/users/${route.params.uname}/educations`),
     $get<any>(`/users/${route.params.uname}/skills`),
     $get<any>(`/problems-rating/${route.params.uname}`),
-    $get<any>(`/problems-rating/${route.params.uname}/statistics-last-days`),
+    $get<any>(`/problems-rating/${route.params.uname}/statistics-last-days/?days=30`),
   ]),
 )
 
@@ -102,7 +108,7 @@ const problems = computed(() => data.value?.[5])
 const activity = computed(() => data.value?.[6])
 
 const activityChart = computed(() => (<ChartData>{ // only for completion lmao
-  labels: new Array(7).fill(0).map((_, i) => {
+  labels: new Array(activity.value.series.length).fill(0).map((_, i) => {
     const date = new Date(new Date().setDate(i - activity.value.series.length))
     return format(date, {date: true})
   }),
