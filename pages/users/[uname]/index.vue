@@ -45,26 +45,38 @@
 
           <div>
             <Line
-              id="user-problems-activity"
+              :id="`users-${user.username}-problems-activity`"
               :data="activityChart"
-              :options="{
-                responsive: true,
-                scales: {
-                  x: {
-                    display: false,
-                  },
-                  y: {
-                    beginAtZero: true,
-                    ticks: {
-                      precision: 0,
-                    },
-                  },
-                },
-                plugins: {
-                  legend: { display: false },
-                },
-              }"
+              :options="activityOptions"
             ></Line>
+          </div>
+        </div>
+        <div class="mt-4 border rounded px-2 py-4">
+          <div class="text-2xl mb-2 text-center">Contests</div>
+          <div class="text-center mb-2 text-xl">Rating: {{ contestRating.rating }}</div>
+          <div class="text-center mb-2 text-xl">Max rating: {{ contestRating.rating }}</div>
+          <div class="text-center mb-2 text-xl">Total: {{ contestRating.contestantsCount }}</div>
+          <div class="mb-2">
+            <Line
+              :id="`users-${user.username}-contest-rating`"
+              ref="contestChart"
+              @click="contestChartOnclick"
+              :data="contestData"
+              :options="contestOptions"
+            ></Line>
+          </div>
+          <div v-if="selectedContest" class="border border-primary-600 rounded px-2 py-2">
+            <div class="flex">
+              <nuxt-link :to="`/contests/${selectedContest.contestId}`" class="link mr-2">
+                {{ selectedContest.contestTitle }}
+              </nuxt-link>
+              <span class="font-bold" :class="selectedContest.delta < 0 ? 'text-red-700' : 'text-green-700'">
+                {{ selectedContest.delta >= 0 ? '+' : ''}}{{ selectedContest.delta }}
+              </span>
+            </div>
+            <nuxt-link :to="`/contests/${selectedContest.contestId}/standings`" class="link">
+              Rank: {{ selectedContest.rank }}</nuxt-link>
+            <div>Date: <ui-time :value="selectedContest.contestStartDate" date></ui-time></div>
           </div>
         </div>
       </div>
@@ -76,7 +88,7 @@
 import { Line } from 'vue-chartjs'
 import { difficulties, difficultyClass } from '~/components/problem-difficulty.vue'
 import '~/chart-util'
-import { ChartData } from 'chart.js';
+import { ChartData, ChartOptions } from 'chart.js';
 import { format } from '~/components/ui-time.vue';
 
 const route = useRoute()
@@ -95,6 +107,8 @@ const {data, pending, error, refresh} = useAsyncData(
     $get<any>(`/users/${route.params.uname}/skills`),
     $get<any>(`/problems-rating/${route.params.uname}`),
     $get<any>(`/problems-rating/${route.params.uname}/statistics-last-days/?days=30`),
+    $get<any>(`/contests-rating/${route.params.uname}`),
+    $get<any>(`/contests-rating/${route.params.uname}/rating-changes`),
   ]),
 )
 
@@ -106,6 +120,8 @@ const edu = computed(() => data.value?.[3])
 const skis = computed(() => data.value?.[4] as {[key: string]: number})
 const problems = computed(() => data.value?.[5])
 const activity = computed(() => data.value?.[6])
+const contestRating = computed(() => data.value?.[7])
+const contests = computed(() => data.value?.[8])
 
 const activityChart = computed(() => (<ChartData>{ // only for completion lmao
   labels: new Array(activity.value.series.length).fill(0).map((_, i) => {
@@ -117,5 +133,66 @@ const activityChart = computed(() => (<ChartData>{ // only for completion lmao
     data: activity.value.series,
   }]
 }) as any)
+
+const activityOptions = computed(() => (<ChartOptions>{
+  responsive: true,
+  scales: {
+    x: {
+      display: false,
+    },
+    y: {
+      beginAtZero: true,
+      ticks: {
+        precision: 0,
+      },
+    },
+  },
+  plugins: {
+    legend: { display: false },
+  },
+}) as any)
+
+const contestChart = ref(null as any)
+
+const contestData = computed(() => (<ChartData>{
+  labels: contests.value.map((c: any) => c.contestTitle),
+  datasets: [{
+    data: contests.value.map((c: any) => c.newRating),
+  }]
+}) as any)
+
+const contestOptions = computed(() => (<ChartOptions>{
+  scales: {
+    x: {
+      display: false,
+    },
+    y: {
+      ticks: {
+        callback: function(value) {
+          return '' + value
+        },
+      },
+    },
+  },
+  plugins: {
+    legend: { display: false },
+    tooltip: {
+      callbacks: {
+        label: (context) => {
+          return  'New rating: ' + String(context.parsed.y)
+        }
+      }
+    }
+  },
+}) as any)
+
+const selectedContest = ref(null as any)
+
+const contestChartOnclick = (click: MouseEvent) => {
+  const points = contestChart.value.chart.getElementsAtEventForMode(click, 'nearest', true)
+  if (points.length) {
+    selectedContest.value = contests.value[points[0].index]
+  }
+}
 
 </script>

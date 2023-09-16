@@ -2,8 +2,8 @@
 // @ts-ignore
 import {theme} from '#tailwind-config'
 
-import { Chart, Title, Legend, Tooltip, PointElement, LineElement, CategoryScale, LinearScale } from 'chart.js'
-Chart.register(Title, PointElement, Legend, Tooltip, LineElement, CategoryScale, LinearScale)
+import { Chart, Filler, Title, Legend, Tooltip, PointElement, LineElement, CategoryScale, LinearScale } from 'chart.js'
+Chart.register(Title, Filler, PointElement, Legend, Tooltip, LineElement, CategoryScale, LinearScale)
 
 Chart.defaults.interaction.intersect = false
 
