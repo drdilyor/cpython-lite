@@ -53,8 +53,14 @@
         </div>
         <div class="mt-4 border rounded px-2 py-4">
           <div class="text-2xl mb-2 text-center">Contests</div>
-          <div class="text-center mb-2 text-xl">Rating: {{ contestRating.rating }}</div>
-          <div class="text-center mb-2 text-xl">Max rating: {{ contestRating.rating }}</div>
+          <div class="text-center mb-2 text-xl">
+            Rating:
+            <ui-user :user="{username: contestRating.rating, ratingTitle: contestRating.ratingTitle}"></ui-user>
+          </div>
+          <div class="text-center mb-2 text-xl">
+            Max rating:
+            <ui-user :user="{username: contestRating.maxRating, ratingTitle: contestRating.maxRatingTitle}"></ui-user>
+          </div>
           <div class="text-center mb-2 text-xl">Total: {{ contestRating.contestantsCount }}</div>
           <div class="mb-2">
             <Line
