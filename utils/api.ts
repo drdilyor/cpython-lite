@@ -1,6 +1,6 @@
 
-export const apiHostRoot = 'https://cpython.uz'
-export const apiRoot = 'https://cpython.uz/api'
+export const apiHostRoot = 'https://kep.uz'
+export const apiRoot = 'https://kep.uz/api'
 
 export type Method = 'get' | 'post'
 export type Endpoint = `/${string}` | `#${string}`
