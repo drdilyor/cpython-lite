@@ -10,9 +10,9 @@
         <template #label>Password</template>
         <template #bottom v-if="formError.password">{{ formError.password.join(' ') }}</template>
       </ui-input>
-      <div class="hidden lg:block"></div>
+      <div class="hidden sm:block"></div>
       <div><ui-button type="submit" :disabled="pending">Submit</ui-button></div>
-      <div class="hidden lg:block"></div>
+      <div class="hidden sm:block"></div>
       <div v-if="formError.non_field_errors">{{ formError.non_field_errors.join(' ') }}</div>
     </div>
     <ui-error v-if="error && !isFormError" :error="error"></ui-error>
