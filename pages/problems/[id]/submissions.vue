@@ -39,6 +39,8 @@ const {data: submissions, pending, error, refresh} = useAsyncData(
   }
 )
 
+onActivated(() => refresh())
+
 const {data: problem, pending: problemPending, error: problemError, refresh: problemRefresh} = useAsyncData(
   `/problems/${+route.params.id}`,
   () => $get<any>(`/problems/${+route.params.id}`),

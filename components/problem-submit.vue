@@ -3,7 +3,7 @@
     <ui-input is="select" id="language" v-model="language" required>
       <template #label>Language</template>
       <template #control-inner>
-        <option v-for="lang in problem.availableLanguages" :value="lang.lang">{{ langName[lang.lang] }}</option>
+        <option v-for="lang in problem.availableLanguages" :value="lang.lang">{{ lang.langFull }}</option>
       </template>
     </ui-input>
     <ui-input is="textarea" id="source" v-model="source" :control-attrs="{rows: 10, class: 'font-mono'}">
@@ -21,8 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import { langName } from './ui-language.vue';
-
 const props = defineProps({
   problem: { type: Object, required: true },
   submitUrl: { type: String, required: true },

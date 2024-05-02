@@ -42,7 +42,7 @@
                 <tbody>
                   <template v-for="language in problem.availableLanguages" >
                     <tr v-if="language.timeLimit || language.memoryLimit" :class="tr">
-                      <td :class="td"><ui-language :lang="language.lang"></ui-language></td>
+                      <td :class="td"><ui-language :lang-full="language.langFull"></ui-language></td>
                       <td :class="td">
                         {{ language.timeLimit ? (language.timeLimit/1000).toFixed(1) : '-' }} s / {{ language.memoryLimit || '-' }} MB</td>
                     </tr>
