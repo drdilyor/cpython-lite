@@ -1,11 +1,7 @@
 <template>
-  <label :for="id" :class="
-    breakpoint == 'sm' ? 'sm:text-right sm:py-1 sm:pr-2' :
-    breakpoint == 'md' ? 'md:text-right md:py-1 md:pr-2' :
-    breakpoint == 'lg' ? 'lg:text-right lg:py-1 lg:pr-2' : ''"
-    v-bind="labelAttrs">
+  <ui-input-label :for="id" :breakpoint="breakpoint" v-bind="labelAttrs">
     <slot name="label"></slot>
-  </label>
+  </ui-input-label>
   <div>
     <component
       :is="is" :id="id" :value="modelValue" :type="type" v-bind="controlAttrs"
@@ -15,11 +11,14 @@
       <slot name="control-inner"></slot>
     </component>
     <slot name="bottom"></slot>
+    <div v-for="error in errors" class="text-red-700">
+      {{ error }}
+    </div>
   </div>
-
 </template>
 
 <script setup lang="ts">
+
 defineProps({
   id: { type: String, required: true },
   is: { type: String, default: 'input', },
@@ -30,8 +29,10 @@ defineProps({
   required: { type: Boolean, default: false },
   controlAttrs: { type: Object, default: () => {} }, 
   labelAttrs: { type: Object, default: () => {} },
+  labelClass: { type: String, default: '' },
   modelValue: { required: true },
   lazy: { type: Boolean, default: false },
+  errors: { type: Array<String>, default: () => []}
 })
 const emit = defineEmits([ 'update:modelValue' ])
 </script>
