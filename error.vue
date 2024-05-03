@@ -8,7 +8,7 @@
       <p>{{ error?.statusMessage }}</p>
       <div class="mt-4 space-x-2">
         <ui-button @click="$router.go(-1)">Go back</ui-button>
-        <ui-button outline to="/">Go home</ui-button>
+        <ui-button outline url="/">Go home</ui-button>
       </div>
     </div>
   </NuxtLayout>
