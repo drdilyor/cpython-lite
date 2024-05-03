@@ -1,5 +1,5 @@
 [x] - Update languages
-[ ] - Form errors
-[ ] - Error pages
+[x] - Form errors
+[x] - Error pages
 [ ] - API types
 [ ] - Contest submissions
