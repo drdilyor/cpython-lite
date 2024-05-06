@@ -55,11 +55,11 @@
           <div class="text-2xl mb-2 text-center">Contests</div>
           <div class="text-center mb-2 text-xl">
             Rating:
-            <ui-user :user="{username: contestRating.rating, ratingTitle: contestRating.ratingTitle}"></ui-user>
+            <ui-user :user="{username: contestRating.rating, ratingTitle: contestRating.ratingTitle}" :link="false"></ui-user>
           </div>
           <div class="text-center mb-2 text-xl">
             Max rating:
-            <ui-user :user="{username: contestRating.maxRating, ratingTitle: contestRating.maxRatingTitle}"></ui-user>
+            <ui-user :user="{username: contestRating.maxRating, ratingTitle: contestRating.maxRatingTitle}" :link="false"></ui-user>
           </div>
           <div class="text-center mb-2 text-xl">Total: {{ contestRating.contestantsCount }}</div>
           <div class="mb-2">

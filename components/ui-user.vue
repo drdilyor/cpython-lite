@@ -1,14 +1,17 @@
 <template>
-  <nuxt-link :to="`/users/${user.username}`" :title="title()"
-  :class="[user.ratingTitle && 'font-bold ' + ratingColor[user.ratingTitle], limitWidth && 'block text-ellipsis overflow-hidden']">
+  <nuxt-link v-if="link" :to="`/users/${user.username}`" :title="title()" :class="rootClass()">
     {{ user.username }}
   </nuxt-link>
+  <span v-else :title="title()" :class="rootClass()">
+    {{ user.username }}
+  </span>
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
   user: { type: Object, required: true },
   limitWidth: { type: Boolean, default: false }, // remember to set the width from parent
+  link: { type: Boolean, default: true }
 })
 // neofit - ritor - liktor - legat - master - magistr - pretor valar
 const ratingColor: {[k: string]: string} = {
@@ -26,4 +29,9 @@ const ratingColor: {[k: string]: string} = {
 }
 
 const title = () => props.user.ratingTitle && `${props.user.ratingTitle} ${props.user.username}`
+
+const rootClass = () => [
+  props.user.ratingTitle && 'font-bold ' + ratingColor[props.user.ratingTitle],
+  props.limitWidth && 'block text-ellipsis overflow-hidden'
+]
 </script>
