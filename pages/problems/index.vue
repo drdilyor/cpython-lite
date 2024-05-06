@@ -84,10 +84,10 @@
 <script setup lang="ts">
 import { difficulties } from '~/components/problem-difficulty.vue';
 
-const curPage = ref(1)
-const filterTitle = ref('')
-const filterDifficulty = ref('')
-const filterSolvedStatus = ref('' as '' | 'solved' | 'unsolved' | 'unattempted')
+const curPage = useQueryParam('page', 1)
+const filterTitle = useQueryParam('title', '')
+const filterDifficulty = useQueryParam('difficulty', '')
+const filterSolvedStatus = useQueryParam('status', '' as '' | 'solved' | 'unsolved' | 'unattempted')
 const showAllTags = ref(false)
 
 const { data: problems, error, pending, refresh } = useAsyncData(
@@ -113,4 +113,5 @@ const { data: problems, error, pending, refresh } = useAsyncData(
 )
 
 watch([filterTitle, filterDifficulty, filterSolvedStatus], () => curPage.value = 1)
+
 </script>

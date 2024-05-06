@@ -22,7 +22,7 @@
 <script setup lang="ts">
 const route = useRoute()
 
-const page = ref(1)
+const page = useQueryParam('page', 1)
 
 const {data: submissions, pending, error, refresh} = useAsyncData(
   `/attempts?problem_id=${+route.params.id}`,
